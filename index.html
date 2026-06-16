@@ -33,7 +33,6 @@
         /* Container اصلی با پس‌زمینه صنعتی */
         .header-wrapper {
             /* فرض بر این است که headerbackground.png در پوشه data موجود است */
-            /* اگر نیست، این خط را حذف کنید یا URL جایگزین قرار دهید */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
                         url('[/mnt/data/headerbackground.png'](https://storage.gapgpt.app/media/code_interpreter/2e0713f0-c74c-4c6f-8ac6-1315b416ab92/headerbackground.png%27)); 
             background-size: cover;
@@ -289,7 +288,7 @@
             .brand-text p { font-size: 9px; }
             
             /* نمایش دکمه منوی همبرگری */
-            .mobile-nav-toggle { display: block; margin-left: auto; /* بردن به سمت راست */ }
+            .mobile-nav-toggle { display: block; /* نمایش دکمه */ }
             
             /* مخفی کردن منوی دسکتاپ */
             .nav-menu { display: none; } 
@@ -339,7 +338,6 @@
             }
             .brand-section {
                  margin-left: auto; /* برند را به سمت چپ سوق می‌دهد */
-                 /* border-left: 1px solid var(--glass-border); */ /* حذف جداکننده در این حالت */
                  padding-left: 0; 
             }
             .nav-menu {
@@ -354,6 +352,9 @@
             
             /* اطمینان از نمایش منوی دسکتاپ */
             .nav-menu.d-none.d-lg-flex { display: flex !important; } 
+            
+            /* اطمینان از مخفی بودن دکمه همبرگری در دسکتاپ */
+            .mobile-nav-toggle { display: none; }
         }
 
     </style>
@@ -365,7 +366,6 @@
     <!-- Glass Navbar -->
     <nav class="glass-nav">
         <div class="brand-section">
-            <!-- آدرس تصویر لوگو باید به درستی تنظیم شود -->
             <img src="[/mnt/data/logositezimanoai.png"](https://storage.gapgpt.app/media/code_interpreter/2e0713f0-c74c-4c6f-8ac6-1315b416ab92/logositezimanoai.png%22) alt="Logo" class="brand-logo">
             <div class="brand-text">
                 <h1>ZimanoAI</h1>
@@ -389,6 +389,11 @@
             </div>
             <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
         </div>
+        
+        <!-- دکمه همبرگری (فقط در موبایل نمایش داده می شود) -->
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i> <!-- آیکون اولیه -->
+        </button>
     </nav>
 
     <div class="container-fluid flex-grow-1">
@@ -456,10 +461,10 @@
     </div>
 </div>
 
-<!-- Overlay برای بستن منو با کلیک خارج از آن -->
+<!-- Overlay -->
 <div class="overlay"></div>
 
-<!-- منوی موبایل (مخفی) -->
+<!-- منوی موبایل -->
 <ul class="mobile-nav-menu">
     <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
     <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
@@ -468,85 +473,70 @@
     <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
 </ul>
 
-<!-- دکمه همبرگری (فقط در موبایل) -->
-<button class="mobile-nav-toggle" aria-label="Toggle navigation">
-    <i class="fas fa-bars"></i>
-</button>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
     const overlay = document.querySelector('.overlay'); 
 
-    // تابع برای باز و بسته کردن منوی موبایل
+    // تابع برای باز و بسته کردن منوی موبایل و تغییر آیکون
     function toggleMobileMenu() {
         mobileNavMenu.classList.toggle('active');
         overlay.classList.toggle('active'); 
-        // تغییر آیکون همبرگر به ضربدر و بالعکس
+        
         const icon = mobileNavToggle.querySelector('i');
         if (mobileNavMenu.classList.contains('active')) {
             icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
+            icon.classList.add('fa-xmark'); // استفاده از آیکون ضربدر
         } else {
             icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+            icon.classList.add('fa-bars'); // بازگرداندن آیکون همبرگر
         }
     }
 
     // شنونده رویداد کلیک برای دکمه همبرگری
-    mobileNavToggle.addEventListener('click', toggleMobileMenu);
+    if (mobileNavToggle) { // اطمینان از وجود دکمه
+        mobileNavToggle.addEventListener('click', toggleMobileMenu);
+    }
 
     // بستن منو با کلیک روی یکی از آیتم های منو
     const mobileNavItems = document.querySelectorAll('.mobile-nav-menu .nav-item a');
     mobileNavItems.forEach(item => {
         item.addEventListener('click', () => {
-            // اگر منو باز بود، آن را ببند
             if (mobileNavMenu.classList.contains('active')) {
-                toggleMobileMenu(); // این تابع هم منو را می بندد و هم آیکون را تغییر می دهد
+                toggleMobileMenu(); 
             }
         });
     });
 
     // بستن منو با کلیک روی overlay
-    overlay.addEventListener('click', () => {
-        // اگر منو باز بود، آن را ببند
-        if (mobileNavMenu.classList.contains('active')) {
-            toggleMobileMenu(); // این تابع هم منو را می بندد و هم آیکون را تغییر می دهد
-        }
-    });
+    if (overlay) { // اطمینان از وجود overlay
+        overlay.addEventListener('click', () => {
+            if (mobileNavMenu.classList.contains('active')) {
+                toggleMobileMenu(); 
+            }
+        });
+    }
     
-    // منطق نمایش دکمه همبرگری فقط در موبایل
+    // منطق نمایش/مخفی کردن دکمه همبرگری بر اساس عرض صفحه
     const navBar = document.querySelector('.glass-nav');
-    const brandSection = navBar.querySelector('.brand-section');
-    const navMenu = navBar.querySelector('.nav-menu');
-    const rightItems = navBar.querySelector('.d-flex'); // شامل EN و تماس
-    
-    // قرار دادن دکمه همبرگری در نوبار در حالت موبایل
     const hamburgerButton = document.querySelector('.mobile-nav-toggle');
-    
+
     function adjustNavLayout() {
-        if (window.innerWidth <= 992) {
-            // حالت موبایل
-            navBar.classList.add('mobile-nav-active');
-            // اضافه کردن دکمه همبرگری به نوبار
-            // brandSection.parentNode.insertBefore(hamburgerButton, brandSection.nextSibling); // بین برند و منوی راست
-            // این روش بالا ممکن است ترتیب را بهم بریزد. بهتر است دکمه همبرگری را در HTML کنار برند قرار دهیم و فقط نمایش آن را کنترل کنیم.
-            hamburgerButton.style.display = 'block'; // نمایش دکمه
-            navMenu.style.display = 'none'; // مخفی کردن منوی دسکتاپ
-            rightItems.style.display = 'flex'; // اطمینان از نمایش آیتم های راست
-            
-            // اطمینان از اینکه brand-section و right-items به درستی در نوبار قرار گرفته اند
-            navBar.style.justifyContent = 'space-between';
-        } else {
-            // حالت دسکتاپ
-            navBar.classList.remove('mobile-nav-active');
-            hamburgerButton.style.display = 'none'; // مخفی کردن دکمه
-            navMenu.style.display = 'flex'; // نمایش منوی دسکتاپ
-            rightItems.style.display = 'flex';
-            
-            // بازگرداندن نوبار به حالت مرکزی
-            navBar.style.justifyContent = 'center';
+        // اگر دکمه همبرگری در HTML وجود داشته باشد (یعنی در حالت موبایل قرار است نمایش داده شود)
+        if (hamburgerButton) { 
+            if (window.innerWidth <= 992) {
+                // حالت موبایل
+                hamburgerButton.style.display = 'block'; // نمایش دکمه همبرگری
+                // نوبار در حالت موبایل نیاز به تنظیمات خاصی ندارد چون دکمه همبرگری اضافه شده
+            } else {
+                // حالت دسکتاپ
+                hamburgerButton.style.display = 'none'; // مخفی کردن دکمه همبرگری
+                // اگر منوی موبایل باز بود، آن را ببند
+                if (mobileNavMenu && mobileNavMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
         }
     }
 
@@ -554,9 +544,6 @@
     window.addEventListener('load', adjustNavLayout);
     window.addEventListener('resize', adjustNavLayout);
     
-    // اطمینان از اینکه دکمه همبرگری در HTML به درستی قرار گرفته است.
-    // معمولا بهتر است کنار لوگو قرار گیرد. در کد HTML فعلی، آن را کنار لوگو قرار داده ایم.
-
 </script>
 
 </body>
