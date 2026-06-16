@@ -19,30 +19,27 @@
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-gray: #888;
+            --nav-height: 70px; /* ارتفاع ناوبری */
         }
 
         body {
             background-color: var(--bg-black);
             color: #ffffff;
             font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-            padding: 20px;
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* Container اصلی با پس‌زمینه صنعتی */
-        .header-wrapper {
+        /* Wrapper اصلی صفحه */
+        .page-wrapper {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
-                        url('headerbackground.png'); /* نام فایل تصویر پس‌زمینه */
+                        url('[/mnt/data/headerbackground.png'](https://storage.gapgpt.app/media/code_interpreter/2e0713f0-c74c-4c6f-8ac6-1315b416ab92/headerbackground.png%27)); /* نام فایل تصویر پس‌زمینه */
             background-size: cover;
             background-position: center;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            min-height: 92vh;
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            position: relative;
         }
 
         /* --- Glass Navbar Styles --- */
@@ -55,6 +52,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: var(--nav-height);
+            box-sizing: border-box; /* اطمینان از اینکه padding ارتفاع را تغییر ندهد */
         }
 
         .brand-section {
@@ -68,8 +67,15 @@
         .brand-text h1 { color: white; font-size: 22px; margin: 0; font-weight: 800; }
         .brand-text p { color: var(--text-gray); font-size: 10px; margin: 0; text-transform: uppercase; }
 
-        .nav-menu { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
-        .nav-item { text-align: center; text-decoration: none; transition: 0.3s; position: relative; }
+        /* Desktop Nav Menu */
+        .desktop-nav-menu { 
+            display: flex; 
+            gap: 25px; 
+            list-style: none; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .nav-item { text-align: center; text-decoration: none; transition: 0.3s; position: relative; color: white; }
         .nav-item i { display: block; color: white; font-size: 18px; margin-bottom: 4px; opacity: 0.7; }
         .nav-item .fa-lang { display: block; color: white; font-size: 13px; font-weight: 600; }
         .nav-item .en-text { display: block; color: var(--text-gray); font-size: 9px; }
@@ -80,11 +86,102 @@
             background: var(--accent-blue); border-radius: 10px;
         }
 
+        /* --- Mobile Nav Styles --- */
+        .mobile-nav-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            display: none; /* به طور پیش‌فرض مخفی است، در موبایل نمایش داده می‌شود */
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%; /* یا هر عرض دلخواه */
+            height: 100vh;
+            background: var(--bg-black);
+            border-left: 1px solid var(--glass-border);
+            transform: translateX(-100%); /* مخفی شده به سمت چپ */
+            transition: transform 0.3s ease-in-out;
+            z-index: 1001;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto; /* برای اسکرول در صورت زیاد بودن آیتم‌ها */
+        }
+        .mobile-nav-menu.active {
+            transform: translateX(0); /* نمایش داده شده */
+        }
+        .mobile-nav-menu .nav-item {
+            padding: 10px 0;
+            text-align: left; /* آیتم‌ها به چپ تراز شده‌اند */
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .mobile-nav-menu .nav-item i {
+            margin-left: 10px;
+            margin-bottom: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .mobile-nav-menu .nav-item .fa-lang,
+        .mobile-nav-menu .nav-item .en-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .mobile-nav-menu .nav-item:hover::after {
+            display: none; /* حذف خط زیرین در حالت موبایل */
+        }
+        .mobile-nav-menu .nav-item.active::after {
+            display: none; /* حذف خط زیرین در حالت موبایل */
+        }
+        .mobile-nav-menu .nav-item:hover {
+            color: var(--accent-blue);
+        }
+
+        .mobile-nav-menu .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* Overlay for closing menu */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: none; /* به طور پیش‌فرض مخفی است */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
         /* --- Sidebar & Hero Styles --- */
+        .main-content {
+            flex-grow: 1; /* Main content takes available space */
+            display: flex;
+            align-items: center; /* Vertically center content */
+        }
+
         .left-sidebar {
             padding: 60px 40px;
             border-left: 1px solid var(--glass-border);
-            height: 100%;
+            height: 100%; /* Takes full height of main-content */
         }
 
         .blue-dash { width: 40px; height: 4px; background: var(--accent-blue); margin-bottom: 25px; }
@@ -113,37 +210,68 @@
 
         /* Bottom Row */
         .bottom-features {
-            margin-top: auto;
             padding: 35px 60px;
             background: rgba(0,0,0,0.3);
             border-top: 1px solid var(--glass-border);
         }
 
-        .feat-card { border-right: 2px solid var(--accent-blue); padding-right: 20px; }
+        .feat-card { border-right: 2px solid var(--accent-blue); padding-right: 20px; margin-bottom: 20px; }
         .feat-card strong { display: block; font-size: 15px; margin-bottom: 5px; color: #fff; }
         .feat-card span { color: var(--text-gray); font-size: 13px; }
 
+        /* --- Media Queries --- */
         @media (max-width: 992px) {
             .hero-title { font-size: 2.5rem; }
-            .nav-menu { display: none; } /* برای سادگی در موبایل مخفی شد */
+            
+            /* Hide desktop nav, show mobile toggle */
+            .desktop-nav-menu { display: none; }
+            .mobile-nav-toggle { display: block; }
+            .brand-section { border-left: none; padding-left: 0; } /* Remove border for better mobile look */
+            .glass-nav .d-flex.align-items-center:nth-of-type(2) { display: none !important; } /* Hide EN/Contact button on mobile for now */
+
+            .main-content {
+                flex-direction: column; /* Stack sidebar below hero on smaller screens */
+            }
+            .left-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid var(--glass-border);
+            }
+            .hero-section {
+                padding: 40px 20px;
+            }
+            .bottom-features {
+                padding: 20px 15px;
+            }
+            .feat-card {
+                border-right: none;
+                padding-right: 0;
+                text-align: center;
+            }
+        }
+        
+        /* Style for when mobile menu is active */
+        body.menu-open {
+            overflow: hidden; /* Prevent background scrolling */
         }
     </style>
 </head>
 <body>
 
-<div class="header-wrapper">
+<div class="page-wrapper">
     
-    <!-- Glass Navbar یکپارچه شده -->
+    <!-- Glass Navbar -->
     <nav class="glass-nav">
         <div class="brand-section">
-            <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
+            <img src="[/mnt/data/logositezimanoai.png"](https://storage.gapgpt.app/media/code_interpreter/2e0713f0-c74c-4c6f-8ac6-1315b416ab92/logositezimanoai.png%22) alt="Logo" class="brand-logo">
             <div class="brand-text">
                 <h1>ZimanoAI</h1>
                 <p>AI & Machine Vision</p>
             </div>
         </div>
 
-        <ul class="nav-menu">
+        <!-- Desktop Navigation Menu -->
+        <ul class="desktop-nav-menu">
             <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
             <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
             <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
@@ -152,18 +280,26 @@
         </ul>
 
         <div class="d-flex align-items-center">
+            <!-- Language Switcher -->
             <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
                 EN <i class="fa-solid fa-globe ms-1"></i>
             </div>
+            <!-- Contact Button -->
             <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+            
+            <!-- Mobile Navigation Toggle Button -->
+            <button id="mobile-nav-toggle" class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <div class="container-fluid flex-grow-1">
-        <div class="row h-100">
+    <!-- Main Content Area (Hero + Sidebar) -->
+    <div class="container-fluid flex-grow-1 main-content">
+        <div class="row w-100 h-100">
             
-            <!-- Hero Content (سمت راست در RTL) -->
-            <div class="col-md-9 position-relative">
+            <!-- Hero Content (Takes more space on larger screens) -->
+            <div class="col-md-9 position-relative p-0">
                 <div class="hero-section">
                     <div class="pre-title">Next-Gen AI Systems</div>
                     <div class="pre-title">نسل آینده اتوماسیون هوشمند</div>
@@ -184,8 +320,8 @@
                 </div>
             </div>
 
-            <!-- Left Sidebar (سمت چپ در RTL) -->
-            <div class="col-md-3 d-none d-md-block p-0">
+            <!-- Left Sidebar (Hidden on small screens by default, shown on medium+) -->
+            <div class="col-md-3 p-0 d-none d-md-block">
                 <div class="left-sidebar">
                     <div class="blue-dash"></div>
                     <div class="sidebar-text">
@@ -224,6 +360,84 @@
     </div>
 </div>
 
+<!-- Mobile Navigation Menu -->
+<div id="overlay"></div>
+<nav id="mobile-nav-menu" class="mobile-nav-menu">
+    <button class="close-btn" id="mobile-nav-close">
+        <i class="fas fa-times"></i>
+    </button>
+    <!-- Mobile Nav Items -->
+    <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a>
+    <a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a>
+    <a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a>
+    <a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a>
+    <a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a>
+    <!-- Add more items if needed -->
+</nav>
+
+<!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const overlay = document.getElementById('overlay');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
+    const body = document.body;
+
+    function toggleMobileMenu() {
+        mobileNavMenu.classList.toggle('active');
+        overlay.classList.toggle('active');
+        body.classList.toggle('menu-open'); // Prevent background scrolling
+        
+        // Change icon
+        const icon = mobileNavToggle.querySelector('i');
+        if (mobileNavMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    }
+
+    // Event listeners
+    mobileNavToggle.addEventListener('click', toggleMobileMenu);
+    overlay.addEventListener('click', toggleMobileMenu);
+    mobileNavClose.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when a nav item is clicked
+    document.querySelectorAll('#mobile-nav-menu .nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (mobileNavMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
+    // Adjust layout for responsiveness (optional, Bootstrap handles most of this)
+    function adjustNavLayout() {
+        if (window.innerWidth <= 992) {
+            // On small screens, ensure mobile toggle is visible
+            mobileNavToggle.style.display = 'block';
+            // Hide desktop nav items if needed, though Bootstrap's grid usually handles this
+            // desktopNavMenu.style.display = 'none'; 
+        } else {
+            // On large screens, ensure mobile toggle is hidden and desktop nav is visible
+            mobileNavToggle.style.display = 'none';
+            // desktopNavMenu.style.display = 'flex';
+            
+            // Ensure menu is closed if window is resized larger
+            if (mobileNavMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        }
+    }
+
+    // Initial call and resize listener
+    window.addEventListener('load', adjustNavLayout);
+    window.addEventListener('resize', adjustNavLayout);
+
+</script>
 </body>
 </html>
