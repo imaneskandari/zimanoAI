@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZimanoAI | AI & Machine Vision</title>
+    <title>ZimanoAI | Responsive Hamburger Menu</title>
     
     <!-- Bootstrap 5.3.3 RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
@@ -25,24 +25,9 @@
             background-color: var(--bg-black);
             color: #ffffff;
             font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-            padding: 20px;
             margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* Container اصلی با پس‌زمینه صنعتی */
-        .header-wrapper {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
-                        url('headerbackground.png'); /* نام فایل تصویر پس‌زمینه */
-            background-size: cover;
-            background-position: center;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            min-height: 92vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+            position: relative; /* برای قرارگیری overlay */
         }
 
         /* --- Glass Navbar Styles --- */
@@ -52,10 +37,11 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             padding: 10px 40px;
-            display: flex; /* Use flexbox for alignment */
+            display: flex;
             align-items: center;
-            justify-content: space-between; /* Distribute space */
-            position: relative; 
+            justify-content: space-between; /* توزیع فضا */
+            position: sticky; /* ثابت ماندن نوبار در بالای صفحه */
+            top: 0;
             z-index: 1001; 
         }
 
@@ -66,9 +52,22 @@
             padding-left: 20px;
         }
 
-        .brand-logo { width: 45px; margin-left: 12px; }
-        .brand-text h1 { color: white; font-size: 22px; margin: 0; font-weight: 800; }
-        .brand-text p { color: var(--text-gray); font-size: 10px; margin: 0; text-transform: uppercase; }
+        .brand-logo { 
+            width: 45px; 
+            margin-left: 12px; 
+        }
+        .brand-text h1 { 
+            color: white; 
+            font-size: 22px; 
+            margin: 0; 
+            font-weight: 800; 
+        }
+        .brand-text p { 
+            color: var(--text-gray); 
+            font-size: 10px; 
+            margin: 0; 
+            text-transform: uppercase; 
+        }
 
         /* منوی ناوبری دسکتاپ */
         .nav-menu { 
@@ -78,59 +77,119 @@
             margin: 0; 
             padding: 0; 
         }
-        .nav-item { text-align: center; text-decoration: none; transition: 0.3s; position: relative; }
-        .nav-item i { display: block; color: white; font-size: 18px; margin-bottom: 4px; opacity: 0.7; }
-        .nav-item .fa-lang { display: block; color: white; font-size: 13px; font-weight: 600; }
-        .nav-item .en-text { display: block; color: var(--text-gray); font-size: 9px; }
+        .nav-item { 
+            text-align: center; 
+            text-decoration: none; 
+            transition: 0.3s; 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 0;
+        }
+        .nav-item i { 
+            display: block; 
+            color: white; 
+            font-size: 18px; 
+            margin-bottom: 4px; 
+            opacity: 0.7;
+        }
+        .nav-item .fa-lang { 
+            display: block; 
+            color: white; 
+            font-size: 13px; 
+            font-weight: 600; 
+        }
+        .nav-item .en-text { 
+            display: block; 
+            color: var(--text-gray); 
+            font-size: 9px; 
+        }
         
-        .nav-item:hover i, .nav-item.active i { color: var(--accent-blue); opacity: 1; }
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -10px; left: 20%; width: 60%; height: 3px;
-            background: var(--accent-blue); border-radius: 10px;
+        .nav-item:hover i, .nav-item.active i { 
+            color: var(--accent-blue); 
+            opacity: 1; 
+        }
+        .nav-item.active::after { /* خط زیر آیتم فعال در دسکتاپ */
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 20%; 
+            width: 60%; 
+            height: 3px;
+            background: var(--accent-blue); 
+            border-radius: 10px;
         }
 
         /* --- Mobile Menu Styles --- */
         .mobile-nav-toggle {
-            display: none; 
+            display: none; /* مخفی در دسکتاپ */
             background: none;
             border: none;
             color: white;
             font-size: 24px;
             cursor: pointer;
             padding: 10px;
-            margin-left: 10px; /* Margin to the left of the icon */
+            margin-left: 10px; /* فاصله از آیتم قبلی */
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none; /* مخفی به طور پیش فرض */
+            position: fixed; /* ثابت در صفحه */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* پس زمینه تیره */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 999; /* زیر نوبار، بالای بقیه محتوا */
+            opacity: 0; /* شروع از شفافیت صفر */
+            transition: opacity 0.4s ease-in-out; /* انیمیشن شفافیت */
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
         }
 
         .mobile-nav-menu {
-            display: none; /* Hidden by default */
-            position: absolute;
-            top: 100%; 
+            display: none; /* مخفی به طور پیش فرض */
+            position: fixed; /* ثابت در صفحه */
+            top: 0; /* شروع از بالای صفحه */
             left: 0;
             width: 100%;
-            background: rgba(33, 33, 33, 0.95); 
+            height: 100vh; /* پوشش تمام ارتفاع صفحه نمایش */
+            background: rgba(33, 33, 33, 0.95); /* پس‌زمینه کمی تیره */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
-            z-index: 1000;
+            padding-top: 80px; /* فاصله از بالای صفحه برای جا شدن نوبار */
+            z-index: 1000; /* بالاتر از overlay */
             list-style: none;
-            gap: 15px;
+            gap: 20px; /* فاصله بین آیتم ها */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transform: translateY(-100%); /* Start off-screen */
-            transition: transform 0.3s ease-in-out; /* Animation */
+            
+            /* --- انیمیشن اسلاید از بالا --- */
+            transform: translateY(-100%); /* شروع از خارج صفحه (بالا) */
+            transition: transform 0.4s ease-in-out; /* مدت و نوع انیمیشن */
         }
 
         .mobile-nav-menu.active {
             display: flex; 
-            transform: translateY(0); /* Slide in */
+            transform: translateY(0); /* اسلاید به موقعیت اصلی */
         }
 
         .mobile-nav-menu .nav-item {
-            padding: 5px 0; 
+            padding: 10px 0; 
             width: 90%;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1); /* جداکننده آیتم ها */
+            flex-direction: row; /* آیتم ها کنار هم (مثلا آیکون و متن) */
+            justify-content: center;
         }
         .mobile-nav-menu .nav-item:last-child {
             border-bottom: none;
@@ -141,6 +200,7 @@
             align-items: center;
             padding: 10px 0;
             width: 100%;
+            text-decoration: none; /* حذف خط زیر لینک */
         }
         .mobile-nav-menu .nav-item i {
             margin-bottom: 0; 
@@ -153,268 +213,161 @@
              margin-left: 5px; 
              display: inline-block;
         }
-         .mobile-nav-menu .nav-item:hover i, .mobile-nav-menu .nav-item.active i { color: var(--accent-blue); opacity: 1; }
+         .mobile-nav-menu .nav-item:hover i, .mobile-nav-menu .nav-item.active i { 
+             color: var(--accent-blue); 
+             opacity: 1; 
+        }
          .mobile-nav-menu .nav-item.active::after {
-            content: ''; 
-            position: static; 
+            content: none; /* حذف خط زیر آیتم فعال در موبایل */
         }
-
-        /* --- Sidebar & Hero Styles --- */
-        .left-sidebar {
-            padding: 60px 40px;
-            border-left: 1px solid var(--glass-border);
-            height: 100%;
-        }
-
-        .blue-dash { width: 40px; height: 4px; background: var(--accent-blue); margin-bottom: 25px; }
-        .sidebar-text { color: #aaa; font-size: 14px; line-height: 1.7; }
-        .sidebar-text span { color: var(--accent-blue); display: block; margin-bottom: 5px; font-weight: 700; }
-
-        .hero-section { padding: 80px 60px; }
-        .pre-title { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700; margin-bottom: 15px; }
-        .hero-title { font-size: 3.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 25px; }
-        .hero-title span { color: var(--accent-blue); }
-        .hero-desc { color: var(--text-gray); max-width: 550px; font-size: 16px; margin-bottom: 40px; }
-
-        /* Buttons */
-        .btn-blue {
-            background: var(--accent-blue); color: white; border: none; padding: 14px 35px;
-            border-radius: 50px; font-weight: 600; margin-left: 15px;
-            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3); transition: 0.3s;
-        }
-        .btn-blue:hover { transform: translateY(-3px); background: #0073e6; }
-        
-        .btn-outline {
-            border: 1px solid #444; color: white; padding: 14px 35px; border-radius: 50px;
-            text-decoration: none; transition: 0.3s; display: inline-block;
-        }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #666; }
-
-        /* Bottom Row */
-        .bottom-features {
-            margin-top: auto;
-            padding: 35px 60px;
-            background: rgba(0,0,0,0.3);
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .feat-card { border-right: 2px solid var(--accent-blue); padding-right: 20px; }
-        .feat-card strong { display: block; font-size: 15px; margin-bottom: 5px; color: #fff; }
-        .feat-card span { color: var(--text-gray); font-size: 13px; }
 
         /* --- Media Queries --- */
         @media (max-width: 992px) {
-            .hero-title { font-size: 2.5rem; }
-            
-            /* نمایش دکمه منوی همبرگری و مخفی کردن منوی دسکتاپ */
-            .mobile-nav-toggle { display: block; }
-            .nav-menu { display: none; } 
-
-            /* تنظیمات کلی Navbar برای موبایل */
-            .glass-nav { padding: 10px 20px; }
+            /* تغییرات نوبار در موبایل */
+            .glass-nav { 
+                padding: 10px 20px; 
+                justify-content: flex-start; /* شروع از چپ */
+            }
             .brand-section { border-left: none; padding-left: 0; } 
             .brand-text h1 { font-size: 18px; }
             .brand-text p { font-size: 9px; }
             
-            /* استفاده از Bootstrap Grid برای چیدمان navbar در موبایل */
-            .glass-nav {
-                display: flex;
-                flex-wrap: wrap; /* Allow wrapping if needed */
-                justify-content: space-between; /* Push items to ends */
-                align-items: center;
-            }
+            /* نمایش دکمه منوی همبرگری */
+            .mobile-nav-toggle { display: block; margin-left: auto; /* بردن به سمت راست */ }
             
-            /* برای گروه کردن لوگو و دکمه همبرگری در وسط */
+            /* مخفی کردن منوی دسکتاپ */
+            .nav-menu { display: none; } 
+            
+            /* گروه کردن لوگو و دکمه همبرگری در وسط (با استفاده از Bootstrap) */
             .navbar-brand-mobile { 
                 display: flex;
                 align-items: center;
-                justify-content: center; /* Center items within this div */
-                flex-grow: 1; /* Allow it to take available space */
-                position: relative; /* Needed for absolute positioning of toggle button if required */
-            }
-
-            /* دکمه همبرگری را به سمت راست منتقل می‌کنیم */
-            .mobile-nav-toggle {
-                position: absolute;
-                right: 20px; /* Position it to the right */
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .navbar-nav-right { /* برای دکمه های راست (EN و تماس) */
-                margin-left: auto; /* Push to the right */
-                display: flex;
-                align-items: center;
-                order: 2; /* Ensure it's after the brand/toggle group */
-            }
-
-            .nav-menu.d-none.d-lg-flex { /* Ensure desktop menu is hidden */
-                display: none !important;
+                justify-content: center; /* مرکز کردن محتوا */
+                flex-grow: 1; /* گرفتن فضای موجود */
+                position: relative; /* برای موقعیت دهی دکمه */
+                order: 1; /* اولویت نمایش */
             }
             
-            .hero-section { padding: 40px 20px; }
-            .hero-desc { font-size: 14px; }
-            .btn-blue, .btn-outline { padding: 10px 25px; font-size: 12px; }
-            .bottom-features { padding: 20px 20px; }
-            .feat-card { 
-                border-right: none; 
-                border-bottom: 2px solid var(--accent-blue); 
-                padding-right: 0; 
-                padding-bottom: 15px; 
-                margin-bottom: 15px;
+            .navbar-nav-right {
+                order: 2; /* بعد از گروه لوگو */
+                margin-left: auto; /* بردن به سمت راست */
             }
-            .feat-card:last-child { margin-bottom: 0;}
+            
+             /* اطمینان از اینکه منوی دسکتاپ کاملا مخفی است */
+            .nav-menu.d-none.d-lg-flex { display: none !important; }
+
+            /* تنظیمات کلی نوبار در حالت موبایل */
+            .glass-nav {
+                display: flex;
+                flex-wrap: wrap; /* امکان wrap شدن */
+                justify-content: space-between; /* توزیع فضا */
+                align-items: center;
+            }
         }
+        
+        /* استایل های بخش محتوا (برای نمایش بهتر) */
+        .content-wrapper {
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 70vh; /* حداقل ارتفاع برای نمایش بخش محتوا */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .content-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .content-title span { color: var(--accent-blue); }
+        .content-desc { color: var(--text-gray); max-width: 600px; margin: 0 auto; font-size: 16px; line-height: 1.7; }
+
     </style>
 </head>
 <body>
 
-<div class="header-wrapper">
-    
-    <!-- Navbar -->
-    <nav class="glass-nav">
-        <!-- این div برای گروه کردن لوگو و دکمه همبرگری در موبایل است -->
-        <div class="navbar-brand-mobile d-block d-lg-none"> <!-- نمایش در موبایل، مخفی در دسکتاپ -->
-            <div class="brand-section">
-                <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
-                <div class="brand-text">
-                    <h1>ZimanoAI</h1>
-                    <p>AI & Machine Vision</p>
-                </div>
+<nav class="glass-nav">
+    <!-- گروه لوگو و دکمه همبرگری (فقط در موبایل) -->
+    <div class="navbar-brand-mobile d-block d-lg-none"> 
+        <div class="brand-section">
+            <img src="https://via.placeholder.com/45x45?text=Logo" alt="Logo" class="brand-logo"> <!-- Placeholder Logo -->
+            <div class="brand-text">
+                <h1>ZimanoAI</h1>
+                <p>AI & Machine Vision</p>
             </div>
-            <!-- دکمه منوی همبرگری برای موبایل -->
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
+        <!-- دکمه منوی همبرگری -->
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
 
-        <!-- این div برای محتوای سمت راست navbar (EN و تماس) است -->
-        <div class="navbar-nav-right">
-            <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
-                EN <i class="fa-solid fa-globe ms-1"></i>
-            </div>
-            <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+    <!-- آیتم های سمت راست نوبار (EN و تماس) -->
+    <div class="navbar-nav-right">
+        <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
+            EN <i class="fa-solid fa-globe ms-1"></i>
         </div>
+        <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+    </div>
 
-        <!-- منوی دسکتاپ (فقط در دسکتاپ نمایش داده می‌شود) -->
-        <ul class="nav-menu d-none d-lg-flex"> <!-- مخفی در موبایل، نمایش در دسکتاپ -->
-            <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
-        </ul>
-    </nav>
-
-    <!-- منوی موبایل (مخفی) -->
-    <ul class="mobile-nav-menu">
+    <!-- منوی ناوبری دسکتاپ -->
+    <ul class="nav-menu d-none d-lg-flex"> <!-- مخفی در موبایل، نمایش در دسکتاپ -->
         <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
         <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
         <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
         <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
         <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
     </ul>
+</nav>
 
+<!-- Overlay برای بستن منو با کلیک خارج از آن -->
+<div class="overlay"></div>
 
-    <div class="container-fluid flex-grow-1">
-        <div class="row h-100">
-            
-            <!-- Hero Content (سمت راست در RTL) -->
-            <div class="col-md-9 position-relative">
-                <div class="hero-section">
-                    <div class="pre-title">Next-Gen AI Systems</div>
-                    <div class="pre-title">نسل آینده اتوماسیون هوشمند</div>
-                    <h1 class="hero-title">
-                        Precision. Intelligence.<br>
-                        <span>Performance.</span>
-                        دقت. هوش<br>
-                        <span>کارایی بالا.</span>
-                    </h1>
-                    <p class="hero-desc">
-                        ZimanoAI با بهره‌گیری از پیشرفته‌ترین سیستم‌های بینایی ماشین، دقت و سرعت را به خطوط تولید شما می‌آورد. آینده اتوماسیون اینجاست.
-                    </p>
-                    
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-blue">پروژه ها</button>
-                        <a href="#" class="btn-outline">تماس با ما ←</a>
-                    </div>
-                </div>
-            </div>
+<!-- منوی موبایل (مخفی) -->
+<ul class="mobile-nav-menu">
+    <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
+    <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
+    <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
+    <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
+    <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
+</ul>
 
-            <!-- Left Sidebar (سمت چپ در RTL) -->
-            <div class="col-md-3 d-none d-md-block p-0">
-                <div class="left-sidebar">
-                    <div class="blue-dash"></div>
-                    <div class="sidebar-text">
-                        <span>Modern Automation</span>
-                        <span>اتوماسیون مدرن</span>
-                        ترکیب هوش مصنوعی و سخت‌افزارهای صنعتی برای رسیدن به بالاترین سطح کارایی در تولید.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Features Bottom Row -->
-    <div class="bottom-features">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>High Accuracy</strong>
-                    <span>دقت بازرسی تا 99.9 درصد</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>Real-time Processing</strong>
-                    <span>پردازش آنی تصاویر بدون تاخیر</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>Smart Integration</strong>
-                    <span>یکپارچه‌سازی آسان با PLC و SCADA</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- محتوای اصلی صفحه -->
+<div class="content-wrapper">
+    <h1 class="content-title">
+        به <span>ZimanoAI</span> خوش آمدید!
+    </h1>
+    <p class="content-desc">
+        این یک نمونه صفحه برای نمایش منوی ریسپانسیو است. در دسکتاپ منوی افقی و در موبایل منوی همبرگری اسلایدی را مشاهده خواهید کرد.
+    </p>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
-    const overlay = document.createElement('div'); 
-    overlay.className = 'overlay';
+    const overlay = document.querySelector('.overlay'); // دسترسی به overlay
 
-    // Function to open/close mobile menu
+    // تابع برای باز و بسته کردن منوی موبایل
     function toggleMobileMenu() {
         mobileNavMenu.classList.toggle('active');
-        if (mobileNavMenu.classList.contains('active')) {
-            document.body.appendChild(overlay); 
-        } else {
-            overlay.remove(); 
-        }
+        overlay.classList.toggle('active'); // فعال/غیرفعال کردن overlay
     }
 
-    // Event listener for the toggle button
+    // شنونده رویداد کلیک برای دکمه همبرگری
     mobileNavToggle.addEventListener('click', toggleMobileMenu);
 
-    // Close menu when clicking on a menu item
+    // بستن منو با کلیک روی یکی از آیتم های منو
     const mobileNavItems = document.querySelectorAll('.mobile-nav-menu .nav-item a');
     mobileNavItems.forEach(item => {
         item.addEventListener('click', () => {
             mobileNavMenu.classList.remove('active');
-            overlay.remove(); 
+            overlay.classList.remove('active');
         });
     });
 
-    // Close menu when clicking outside of it (on the overlay)
+    // بستن منو با کلیک روی overlay
     overlay.addEventListener('click', () => {
         mobileNavMenu.classList.remove('active');
-        overlay.remove();
+        overlay.classList.remove('active');
     });
 </script>
+
 </body>
 </html>
