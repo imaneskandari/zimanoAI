@@ -4,243 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZimanoAI | AI & Machine Vision</title>
+    
     <!-- Bootstrap 5.3.3 RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
-    <!-- Font Awesome 6 (برای آیکون‌ها) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --bg-black: #030508;
             --accent-blue: #0084ff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-gray: #888;
         }
 
         body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+            padding: 20px;
             margin: 0;
-            padding: 0;
-            /* تصویر پس‌زمینه‌ای که قبلاً برایت ساختم را اینجا قرار بده */
-            background: url('industrial-bg.png') no-repeat center center fixed;
+            overflow-x: hidden;
+        }
+
+        /* Container اصلی با پس‌زمینه صنعتی */
+        .header-wrapper {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
+                        url('industrial-bg.png'); /* نام فایل تصویر پس‌زمینه */
             background-size: cover;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-position: center;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            min-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
         }
 
-        .main-header {
-            padding: 40px 20px;
-        }
-
-        /* استایل اصلی نوار شیشه‌ای */
+        /* --- Glass Navbar Styles --- */
         .glass-nav {
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 15px 30px;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 1300px;
-            margin: 0 auto;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* بخش لوگو */
         .brand-section {
             display: flex;
             align-items: center;
             border-left: 1px solid var(--glass-border);
-            padding-left: 25px;
-            margin-left: 20px;
+            padding-left: 20px;
         }
 
-        .brand-logo {
-            width: 50px;
-            margin-left: 12px;
-        }
+        .brand-logo { width: 45px; margin-left: 12px; }
+        .brand-text h1 { color: white; font-size: 22px; margin: 0; font-weight: 800; }
+        .brand-text p { color: var(--text-gray); font-size: 10px; margin: 0; text-transform: uppercase; }
 
-        .brand-text h1 {
-            color: white;
-            font-size: 24px;
-            margin: 0;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .brand-text p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 11px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        /* منوی اصلی */
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-item {
-            text-align: center;
-            text-decoration: none;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-item i {
-            display: block;
-            color: white;
-            font-size: 20px;
-            margin-bottom: 8px;
-            opacity: 0.8;
-        }
-
-        .nav-item .fa-lang {
-            display: block;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-item .en-text {
-            display: block;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 10px;
-            margin-top: 2px;
-        }
-
-        .nav-item:hover i, .nav-item.active i {
-            color: var(--accent-blue);
-            opacity: 1;
-        }
-
+        .nav-menu { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
+        .nav-item { text-align: center; text-decoration: none; transition: 0.3s; position: relative; }
+        .nav-item i { display: block; color: white; font-size: 18px; margin-bottom: 4px; opacity: 0.7; }
+        .nav-item .fa-lang { display: block; color: white; font-size: 13px; font-weight: 600; }
+        .nav-item .en-text { display: block; color: var(--text-gray); font-size: 9px; }
+        
+        .nav-item:hover i, .nav-item.active i { color: var(--accent-blue); opacity: 1; }
         .nav-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: var(--accent-blue);
-            border-radius: 10px;
+            content: ''; position: absolute; bottom: -10px; left: 20%; width: 60%; height: 3px;
+            background: var(--accent-blue); border-radius: 10px;
         }
 
-        /* دکمه تماس با ما */
-        .contact-btn {
-            border: 2px solid var(--accent-blue);
-            border-radius: 12px;
-            padding: 8px 20px;
-            text-align: center;
-            text-decoration: none;
-            background: rgba(0, 132, 255, 0.1);
-            transition: 0.3s;
+        /* --- Sidebar & Hero Styles --- */
+        .left-sidebar {
+            padding: 60px 40px;
+            border-left: 1px solid var(--glass-border);
+            height: 100%;
         }
 
-        .contact-btn:hover {
-            background: var(--accent-blue);
+        .blue-dash { width: 40px; height: 4px; background: var(--accent-blue); margin-bottom: 25px; }
+        .sidebar-text { color: #aaa; font-size: 14px; line-height: 1.7; }
+        .sidebar-text span { color: var(--accent-blue); display: block; margin-bottom: 5px; font-weight: 700; }
+
+        .hero-section { padding: 80px 60px; }
+        .pre-title { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700; margin-bottom: 15px; }
+        .hero-title { font-size: 3.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 25px; }
+        .hero-title span { color: var(--accent-blue); }
+        .hero-desc { color: var(--text-gray); max-width: 550px; font-size: 16px; margin-bottom: 40px; }
+
+        /* Buttons */
+        .btn-blue {
+            background: var(--accent-blue); color: white; border: none; padding: 14px 35px;
+            border-radius: 50px; font-weight: 600; margin-left: 15px;
+            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3); transition: 0.3s;
+        }
+        .btn-blue:hover { transform: translateY(-3px); background: #0073e6; }
+        
+        .btn-outline {
+            border: 1px solid #444; color: white; padding: 14px 35px; border-radius: 50px;
+            text-decoration: none; transition: 0.3s; display: inline-block;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #666; }
+
+        /* Bottom Row */
+        .bottom-features {
+            margin-top: auto;
+            padding: 35px 60px;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid var(--glass-border);
         }
 
-        .contact-btn span {
-            display: block;
-            color: white;
-            font-size: 14px;
-        }
+        .feat-card { border-right: 2px solid var(--accent-blue); padding-right: 20px; }
+        .feat-card strong { display: block; font-size: 15px; margin-bottom: 5px; color: #fff; }
+        .feat-card span { color: var(--text-gray); font-size: 13px; }
 
-        .contact-btn small {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 10px;
-        }
-
-        /* بخش زبان */
-        .lang-selector {
-            color: white;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-right: 15px;
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.5rem; }
+            .nav-menu { display: none; } /* برای سادگی در موبایل مخفی شد */
         }
     </style>
 </head>
 <body>
 
-<header class="main-header">
+<div class="header-wrapper">
+    
+    <!-- Glass Navbar یکپارچه شده -->
     <nav class="glass-nav">
-        
-        <!-- لوگو و عنوان -->
         <div class="brand-section">
-            <img src="logositezimanoai.png" alt="Logo" class="brand-logo"> <!-- نام فایل لوگوی خودت را اینجا بذار -->
+            <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
             <div class="brand-text">
                 <h1>ZimanoAI</h1>
                 <p>AI & Machine Vision</p>
             </div>
         </div>
 
-        <!-- آیتم‌های منو -->
         <ul class="nav-menu">
-            <li>
-                <a href="#" class="nav-item active">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="fa-lang">خانه</span>
-                    <span class="en-text">Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-item">
-                    <i class="fa-solid fa-microchip"></i>
-                    <span class="fa-lang">محصولات</span>
-                    <span class="en-text">Products</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-item">
-                    <i class="fa-solid fa-brain"></i>
-                    <span class="fa-lang">هوش مصنوعی</span>
-                    <span class="en-text">AI Solutions</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-item">
-                    <i class="fa-solid fa-camera"></i>
-                    <span class="fa-lang">بینایی ماشین</span>
-                    <span class="en-text">Machine Vision</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-item">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span class="fa-lang">اخبار و مقالات</span>
-                    <span class="en-text">News</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-item">
-                    <i class="fa-solid fa-building"></i>
-                    <span class="fa-lang">درباره ما</span>
-                    <span class="en-text">About Us</span>
-                </a>
-            </li>
+            <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
         </ul>
 
-        <!-- بخش سمت چپ (تماس و تغییر زبان) -->
         <div class="d-flex align-items-center">
-            <a href="#" class="contact-btn">
-                <span>تماس با ما</span>
-                <small>Contact Us</small>
-            </a>
+            <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
+                EN <i class="fa-solid fa-globe ms-1"></i>
+            </div>
+            <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+        </div>
+    </nav>
+
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
             
-            <div class="lang-selector">
-                <i class="fa-solid fa-globe"></i>
-                EN <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+            <!-- Hero Content (سمت راست در RTL) -->
+            <div class="col-md-9 position-relative">
+                <div class="hero-section">
+                    <div class="pre-title">Next-Gen AI Systems</div>
+                    <h1 class="hero-title">
+                        Precision. Intelligence.<br>
+                        <span>Performance.</span>
+                    </h1>
+                    <p class="hero-desc">
+                        ZimanoAI با بهره‌گیری از پیشرفته‌ترین سیستم‌های بینایی ماشین، دقت و سرعت را به خطوط تولید شما می‌آورد. آینده اتوماسیون اینجاست.
+                    </p>
+                    
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-blue">Explore Systems</button>
+                        <a href="#" class="btn-outline">Contact Us ←</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Sidebar (سمت چپ در RTL) -->
+            <div class="col-md-3 d-none d-md-block p-0">
+                <div class="left-sidebar">
+                    <div class="blue-dash"></div>
+                    <div class="sidebar-text">
+                        <span>Modern Automation</span>
+                        ترکیب هوش مصنوعی و سخت‌افزارهای صنعتی برای رسیدن به بالاترین سطح کارایی در تولید.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Features Bottom Row -->
+    <div class="bottom-features">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <strong>High Accuracy</strong>
+                    <span>دقت بازرسی تا 99.9 درصد</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <strong>Real-time Processing</strong>
+                    <span>پردازش آنی تصاویر بدون تاخیر</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feat-card">
+                    <strong>Smart Integration</strong>
+                    <span>یکپارچه‌سازی آسان با PLC و SCADA</span>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
-    </nav>
-</header>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
