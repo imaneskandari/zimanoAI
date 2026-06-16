@@ -55,8 +55,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative; /* برای قرارگیری منوی موبایل */
-            z-index: 1001; /* اطمینان از اینکه روی محتوای دیگر است */
+            position: relative; 
+            z-index: 1001; 
         }
 
         .brand-section {
@@ -91,23 +91,23 @@
 
         /* --- Mobile Menu Styles --- */
         .mobile-nav-toggle {
-            display: none; /* به صورت پیش فرض مخفی است */
+            display: none; 
             background: none;
             border: none;
             color: white;
             font-size: 24px;
             cursor: pointer;
             padding: 10px;
-            margin-left: 10px; /* فاصله با آیتم قبلی */
+            margin-left: 10px; 
         }
 
         .mobile-nav-menu {
-            display: none; /* به صورت پیش فرض مخفی است */
+            display: none; /* Hidden by default */
             position: absolute;
-            top: 100%; /* زیر هدر قرار می گیرد */
+            top: 100%; 
             left: 0;
             width: 100%;
-            background: rgba(33, 33, 33, 0.95); /* رنگ کمی تیره‌تر برای منوی موبایل */
+            background: rgba(33, 33, 33, 0.95); 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             flex-direction: column;
@@ -117,14 +117,17 @@
             list-style: none;
             gap: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(-100%); /* Start off-screen */
+            transition: transform 0.3s ease-in-out; /* Animation */
         }
 
         .mobile-nav-menu.active {
-            display: flex; /* نمایش منو وقتی فعال است */
+            display: flex; 
+            transform: translateY(0); /* Slide in */
         }
 
         .mobile-nav-menu .nav-item {
-            padding: 5px 0; /* کمی کمتر برای چسبندگی بیشتر */
+            padding: 5px 0; 
             width: 90%;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -133,27 +136,27 @@
             border-bottom: none;
         }
         .mobile-nav-menu .nav-item a {
-            display: flex; /* برای هم‌ترازی آیکون و متن */
+            display: flex; 
             justify-content: center;
             align-items: center;
             padding: 10px 0;
             width: 100%;
         }
         .mobile-nav-menu .nav-item i {
-            margin-bottom: 0; /* حذف مارجین پایین */
-            margin-left: 10px; /* فاصله بین آیکون و متن */
+            margin-bottom: 0; 
+            margin-left: 10px; 
             opacity: 0.9;
-            display: inline-block; /* نمایش در کنار متن */
+            display: inline-block; 
         }
         .mobile-nav-menu .nav-item .fa-lang,
         .mobile-nav-menu .nav-item .en-text {
-             margin-left: 5px; /* فاصله کمتر بین فارسی و انگلیسی */
+             margin-left: 5px; 
              display: inline-block;
         }
          .mobile-nav-menu .nav-item:hover i, .mobile-nav-menu .nav-item.active i { color: var(--accent-blue); opacity: 1; }
          .mobile-nav-menu .nav-item.active::after {
-            content: ''; /* حذف خط جداکننده فعال برای ریسپانسیو */
-            position: static; /* یا حذف کنید */
+            content: ''; 
+            position: static; 
         }
 
 
@@ -210,22 +213,27 @@
 
             /* تنظیمات کلی Navbar برای موبایل */
             .glass-nav { padding: 10px 20px; }
-            .brand-section { border-left: none; padding-left: 0; } /* حذف خط جداکننده */
+            .brand-section { border-left: none; padding-left: 0; } 
             .brand-text h1 { font-size: 18px; }
             .brand-text p { font-size: 9px; }
             
-            /* این div محتوای سمت چپ Navbar را در بر می گیرد (برند + دکمه همبرگری) */
-            .navbar-collapse { 
+            /* استفاده از Bootstrap Grid برای چیدمان navbar در موبایل */
+            .glass-nav .container-fluid { /* در صورت استفاده از container در nav */
                 display: flex;
-                justify-content: space-between; 
+                justify-content: space-between;
+                align-items: center;
                 width: 100%;
-                order: 2; /* برای اینکه بعد از دکمه تماس قرار گیرد */
             }
             
-            /* بخش دکمه تماس و زبان را در سمت راست نگه می داریم */
-            .d-flex.align-items-center {
-                order: 1; /* برای اینکه قبل از برند و دکمه همبرگری قرار گیرد */
-                margin-left: auto; /* آن را به سمت راست هل می دهد */
+            .navbar-brand-mobile { /* برای گروه کردن لوگو و دکمه همبرگری */
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar-nav-right { /* برای دکمه های راست (EN و تماس) */
+                margin-left: auto;
+                display: flex;
+                align-items: center;
             }
 
             .hero-section { padding: 40px 20px; }
@@ -250,8 +258,8 @@
     
     <!-- Navbar -->
     <nav class="glass-nav">
-        <!-- این div محتوای سمت چپ Navbar را در بر می گیرد (برند + دکمه همبرگری) -->
-        <div class="navbar-collapse"> 
+        <!-- برای موبایل، این عناصر را در یک div جدید گروه‌بندی می‌کنیم -->
+        <div class="navbar-brand-mobile d-block d-lg-none"> <!-- نمایش در موبایل، مخفی در دسکتاپ -->
             <div class="brand-section">
                 <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
                 <div class="brand-text">
@@ -259,29 +267,28 @@
                     <p>AI & Machine Vision</p>
                 </div>
             </div>
-
-            <!-- منوی دسکتاپ -->
-            <ul class="nav-menu">
-                <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
-                <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
-                <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
-                <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
-                <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
-            </ul>
-
             <!-- دکمه منوی همبرگری برای موبایل -->
             <button class="mobile-nav-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <!-- بخش دکمه تماس و زبان (همیشه در سمت راست) -->
-        <div class="d-flex align-items-center">
+        <!-- این div برای محتوای سمت راستnavbar (EN و تماس) است -->
+        <div class="navbar-nav-right">
             <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
                 EN <i class="fa-solid fa-globe ms-1"></i>
             </div>
             <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
         </div>
+
+        <!-- منوی دسکتاپ (فقط در دسکتاپ نمایش داده می‌شود) -->
+        <ul class="nav-menu d-none d-lg-flex"> <!-- مخفی در موبایل، نمایش در دسکتاپ -->
+            <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
+        </ul>
     </nav>
 
     <!-- منوی موبایل (مخفی) -->
@@ -363,18 +370,35 @@
 <script>
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
+    const overlay = document.createElement('div'); // Overlay for background dimming
+    overlay.className = 'overlay';
 
-    // نمایش/مخفی کردن منوی موبایل با کلیک روی دکمه همبرگری
-    mobileNavToggle.addEventListener('click', () => {
+    // Function to open/close mobile menu
+    function toggleMobileMenu() {
         mobileNavMenu.classList.toggle('active');
-    });
+        if (mobileNavMenu.classList.contains('active')) {
+            document.body.appendChild(overlay); // Add overlay when menu is open
+        } else {
+            overlay.remove(); // Remove overlay when menu is closed
+        }
+    }
 
-    // بستن منو با کلیک روی هر آیتم منو
+    // Event listener for the toggle button
+    mobileNavToggle.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when clicking on a menu item
     const mobileNavItems = document.querySelectorAll('.mobile-nav-menu .nav-item a');
     mobileNavItems.forEach(item => {
         item.addEventListener('click', () => {
             mobileNavMenu.classList.remove('active');
+            overlay.remove(); // Remove overlay when menu item is clicked
         });
+    });
+
+    // Close menu when clicking outside of it (on the overlay)
+    overlay.addEventListener('click', () => {
+        mobileNavMenu.classList.remove('active');
+        overlay.remove();
     });
 </script>
 </body>
