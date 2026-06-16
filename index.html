@@ -52,9 +52,9 @@
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             padding: 10px 40px;
-            display: flex;
+            display: flex; /* Use flexbox for alignment */
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-between; /* Distribute space */
             position: relative; 
             z-index: 1001; 
         }
@@ -98,7 +98,7 @@
             font-size: 24px;
             cursor: pointer;
             padding: 10px;
-            margin-left: 10px; 
+            margin-left: 10px; /* Margin to the left of the icon */
         }
 
         .mobile-nav-menu {
@@ -159,7 +159,6 @@
             position: static; 
         }
 
-
         /* --- Sidebar & Hero Styles --- */
         .left-sidebar {
             padding: 60px 40px;
@@ -218,24 +217,41 @@
             .brand-text p { font-size: 9px; }
             
             /* استفاده از Bootstrap Grid برای چیدمان navbar در موبایل */
-            .glass-nav .container-fluid { /* در صورت استفاده از container در nav */
+            .glass-nav {
                 display: flex;
-                justify-content: space-between;
+                flex-wrap: wrap; /* Allow wrapping if needed */
+                justify-content: space-between; /* Push items to ends */
                 align-items: center;
-                width: 100%;
             }
             
-            .navbar-brand-mobile { /* برای گروه کردن لوگو و دکمه همبرگری */
+            /* برای گروه کردن لوگو و دکمه همبرگری در وسط */
+            .navbar-brand-mobile { 
                 display: flex;
                 align-items: center;
+                justify-content: center; /* Center items within this div */
+                flex-grow: 1; /* Allow it to take available space */
+                position: relative; /* Needed for absolute positioning of toggle button if required */
+            }
+
+            /* دکمه همبرگری را به سمت راست منتقل می‌کنیم */
+            .mobile-nav-toggle {
+                position: absolute;
+                right: 20px; /* Position it to the right */
+                top: 50%;
+                transform: translateY(-50%);
             }
 
             .navbar-nav-right { /* برای دکمه های راست (EN و تماس) */
-                margin-left: auto;
+                margin-left: auto; /* Push to the right */
                 display: flex;
                 align-items: center;
+                order: 2; /* Ensure it's after the brand/toggle group */
             }
 
+            .nav-menu.d-none.d-lg-flex { /* Ensure desktop menu is hidden */
+                display: none !important;
+            }
+            
             .hero-section { padding: 40px 20px; }
             .hero-desc { font-size: 14px; }
             .btn-blue, .btn-outline { padding: 10px 25px; font-size: 12px; }
@@ -248,7 +264,6 @@
                 margin-bottom: 15px;
             }
             .feat-card:last-child { margin-bottom: 0;}
-
         }
     </style>
 </head>
@@ -258,7 +273,7 @@
     
     <!-- Navbar -->
     <nav class="glass-nav">
-        <!-- برای موبایل، این عناصر را در یک div جدید گروه‌بندی می‌کنیم -->
+        <!-- این div برای گروه کردن لوگو و دکمه همبرگری در موبایل است -->
         <div class="navbar-brand-mobile d-block d-lg-none"> <!-- نمایش در موبایل، مخفی در دسکتاپ -->
             <div class="brand-section">
                 <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
@@ -273,7 +288,7 @@
             </button>
         </div>
 
-        <!-- این div برای محتوای سمت راستnavbar (EN و تماس) است -->
+        <!-- این div برای محتوای سمت راست navbar (EN و تماس) است -->
         <div class="navbar-nav-right">
             <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
                 EN <i class="fa-solid fa-globe ms-1"></i>
@@ -370,16 +385,16 @@
 <script>
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
-    const overlay = document.createElement('div'); // Overlay for background dimming
+    const overlay = document.createElement('div'); 
     overlay.className = 'overlay';
 
     // Function to open/close mobile menu
     function toggleMobileMenu() {
         mobileNavMenu.classList.toggle('active');
         if (mobileNavMenu.classList.contains('active')) {
-            document.body.appendChild(overlay); // Add overlay when menu is open
+            document.body.appendChild(overlay); 
         } else {
-            overlay.remove(); // Remove overlay when menu is closed
+            overlay.remove(); 
         }
     }
 
@@ -391,7 +406,7 @@
     mobileNavItems.forEach(item => {
         item.addEventListener('click', () => {
             mobileNavMenu.classList.remove('active');
-            overlay.remove(); // Remove overlay when menu item is clicked
+            overlay.remove(); 
         });
     });
 
