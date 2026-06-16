@@ -26,8 +26,8 @@
             color: #ffffff;
             font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
-            overflow-x: hidden; /* جلوگیری از اسکرول افقی */
-            position: relative; /* برای قرارگیری overlay */
+            overflow-x: hidden;
+            position: relative;
         }
 
         /* --- Glass Navbar Styles --- */
@@ -39,8 +39,8 @@
             padding: 10px 40px;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* توزیع فضا */
-            position: sticky; /* ثابت ماندن نوبار در بالای صفحه */
+            /* justify-content: space-between; */ /* این مورد را برای حالت دسکتاپ تغییر می‌دهیم */
+            position: sticky;
             top: 0;
             z-index: 1001; 
         }
@@ -52,30 +52,18 @@
             padding-left: 20px;
         }
 
-        .brand-logo { 
-            width: 45px; 
-            margin-left: 12px; 
-        }
-        .brand-text h1 { 
-            color: white; 
-            font-size: 22px; 
-            margin: 0; 
-            font-weight: 800; 
-        }
-        .brand-text p { 
-            color: var(--text-gray); 
-            font-size: 10px; 
-            margin: 0; 
-            text-transform: uppercase; 
-        }
+        .brand-logo { width: 45px; margin-left: 12px; }
+        .brand-text h1 { color: white; font-size: 22px; margin: 0; font-weight: 800; }
+        .brand-text p { color: var(--text-gray); font-size: 10px; margin: 0; text-transform: uppercase; }
 
         /* منوی ناوبری دسکتاپ */
         .nav-menu { 
             display: flex; 
-            gap: 25px; 
+            /* gap: 25px; */ /* gap را در اینجا تنظیم می‌کنیم */
             list-style: none; 
             margin: 0; 
             padding: 0; 
+            /* margin-left: auto; */ /* این مورد را نیز تغییر می‌دهیم */
         }
         .nav-item { 
             text-align: center; 
@@ -83,27 +71,26 @@
             transition: 0.3s; 
             position: relative; 
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* برای نمایش کنار هم در دسکتاپ */
             align-items: center;
             justify-content: center;
-            padding: 5px 0;
+            padding: 5px 15px; /* کمی padding اضافه شد */
+            gap: 8px; /* فاصله بین آیکون و متن */
         }
         .nav-item i { 
             display: block; 
             color: white; 
-            font-size: 18px; 
-            margin-bottom: 4px; 
+            font-size: 16px; /* کمی کوچکتر شد */
             opacity: 0.7;
+            margin-bottom: 0; /* حذف margin-bottom */
         }
         .nav-item .fa-lang { 
-            display: block; 
-            color: white; 
-            font-size: 13px; 
+            display: inline-block; /* به جای block */
+            font-size: 12px; 
             font-weight: 600; 
         }
         .nav-item .en-text { 
-            display: block; 
-            color: var(--text-gray); 
+            display: inline-block; /* به جای block */
             font-size: 9px; 
         }
         
@@ -111,7 +98,7 @@
             color: var(--accent-blue); 
             opacity: 1; 
         }
-        .nav-item.active::after { /* خط زیر آیتم فعال در دسکتاپ */
+        .nav-item.active::after {
             content: ''; 
             position: absolute; 
             bottom: -10px; 
@@ -124,30 +111,30 @@
 
         /* --- Mobile Menu Styles --- */
         .mobile-nav-toggle {
-            display: none; /* مخفی در دسکتاپ */
+            display: none; 
             background: none;
             border: none;
             color: white;
             font-size: 24px;
             cursor: pointer;
             padding: 10px;
-            margin-left: 10px; /* فاصله از آیتم قبلی */
+            margin-left: 10px; 
         }
 
         /* Overlay */
         .overlay {
-            display: none; /* مخفی به طور پیش فرض */
-            position: fixed; /* ثابت در صفحه */
+            display: none; 
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* پس زمینه تیره */
+            background-color: rgba(0, 0, 0, 0.6); 
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
-            z-index: 999; /* زیر نوبار، بالای بقیه محتوا */
-            opacity: 0; /* شروع از شفافیت صفر */
-            transition: opacity 0.4s ease-in-out; /* انیمیشن شفافیت */
+            z-index: 999; 
+            opacity: 0; 
+            transition: opacity 0.4s ease-in-out;
         }
 
         .overlay.active {
@@ -156,39 +143,37 @@
         }
 
         .mobile-nav-menu {
-            display: none; /* مخفی به طور پیش فرض */
-            position: fixed; /* ثابت در صفحه */
-            top: 0; /* شروع از بالای صفحه */
+            display: none; 
+            position: fixed; 
+            top: 0; 
             left: 0;
             width: 100%;
-            height: 100vh; /* پوشش تمام ارتفاع صفحه نمایش */
-            background: rgba(33, 33, 33, 0.95); /* پس‌زمینه کمی تیره */
+            height: 100vh; 
+            background: rgba(33, 33, 33, 0.95); 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             flex-direction: column;
             align-items: center;
-            padding-top: 80px; /* فاصله از بالای صفحه برای جا شدن نوبار */
-            z-index: 1000; /* بالاتر از overlay */
+            padding-top: 80px; 
+            z-index: 1000; 
             list-style: none;
-            gap: 20px; /* فاصله بین آیتم ها */
+            gap: 20px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            
-            /* --- انیمیشن اسلاید از بالا --- */
-            transform: translateY(-100%); /* شروع از خارج صفحه (بالا) */
-            transition: transform 0.4s ease-in-out; /* مدت و نوع انیمیشن */
+            transform: translateY(-100%); 
+            transition: transform 0.4s ease-in-out; 
         }
 
         .mobile-nav-menu.active {
             display: flex; 
-            transform: translateY(0); /* اسلاید به موقعیت اصلی */
+            transform: translateY(0); 
         }
 
         .mobile-nav-menu .nav-item {
             padding: 10px 0; 
             width: 90%;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1); /* جداکننده آیتم ها */
-            flex-direction: row; /* آیتم ها کنار هم (مثلا آیکون و متن) */
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            flex-direction: row; /* آیتم ها کنار هم */
             justify-content: center;
         }
         .mobile-nav-menu .nav-item:last-child {
@@ -200,7 +185,7 @@
             align-items: center;
             padding: 10px 0;
             width: 100%;
-            text-decoration: none; /* حذف خط زیر لینک */
+            text-decoration: none; 
         }
         .mobile-nav-menu .nav-item i {
             margin-bottom: 0; 
@@ -218,58 +203,85 @@
              opacity: 1; 
         }
          .mobile-nav-menu .nav-item.active::after {
-            content: none; /* حذف خط زیر آیتم فعال در موبایل */
+            content: none; 
         }
 
         /* --- Media Queries --- */
         @media (max-width: 992px) {
-            /* تغییرات نوبار در موبایل */
+            /* استایل های موبایل */
             .glass-nav { 
                 padding: 10px 20px; 
-                justify-content: flex-start; /* شروع از چپ */
+                justify-content: flex-start; 
             }
             .brand-section { border-left: none; padding-left: 0; } 
             .brand-text h1 { font-size: 18px; }
             .brand-text p { font-size: 9px; }
             
-            /* نمایش دکمه منوی همبرگری */
-            .mobile-nav-toggle { display: block; margin-left: auto; /* بردن به سمت راست */ }
-            
-            /* مخفی کردن منوی دسکتاپ */
+            .mobile-nav-toggle { display: block; margin-left: auto; }
             .nav-menu { display: none; } 
             
-            /* گروه کردن لوگو و دکمه همبرگری در وسط (با استفاده از Bootstrap) */
             .navbar-brand-mobile { 
                 display: flex;
                 align-items: center;
-                justify-content: center; /* مرکز کردن محتوا */
-                flex-grow: 1; /* گرفتن فضای موجود */
-                position: relative; /* برای موقعیت دهی دکمه */
-                order: 1; /* اولویت نمایش */
+                justify-content: center; 
+                flex-grow: 1; 
+                position: relative; 
+                order: 1; 
             }
             
             .navbar-nav-right {
-                order: 2; /* بعد از گروه لوگو */
-                margin-left: auto; /* بردن به سمت راست */
+                order: 2; 
+                margin-left: auto; 
             }
             
-             /* اطمینان از اینکه منوی دسکتاپ کاملا مخفی است */
             .nav-menu.d-none.d-lg-flex { display: none !important; }
 
-            /* تنظیمات کلی نوبار در حالت موبایل */
             .glass-nav {
                 display: flex;
-                flex-wrap: wrap; /* امکان wrap شدن */
-                justify-content: space-between; /* توزیع فضا */
+                flex-wrap: wrap; 
+                justify-content: space-between; 
                 align-items: center;
             }
         }
-        
-        /* استایل های بخش محتوا (برای نمایش بهتر) */
+
+        /* استایل های دسکتاپ (عرض بزرگتر از 992px) */
+        @media (min-width: 992px) {
+            .glass-nav {
+                justify-content: center; /* مرکز کردن کل نوبار */
+                padding: 10px 0; /* تنظیم padding برای نوبار مرکزی */
+            }
+            .brand-section {
+                 border-left: 1px solid var(--glass-border); /* حفظ جداکننده برند */
+                 padding-left: 20px; 
+                 margin-left: auto; /* برند را به سمت چپ سوق می‌دهد */
+            }
+            .nav-menu {
+                /* margin-left: 0; */ /* حذف margin-left */
+                /* margin-right: auto; */ /* برای اینکه منو در مرکز قرار گیرد */
+                justify-content: center; /* مرکز کردن آیتم های منو */
+                margin: 0 50px; /* فاصله از برند و بخش راست */
+                gap: 30px; /* افزایش فاصله بین آیتم ها */
+                order: 1; /* اطمینان از نمایش قبل از برند */
+            }
+            .nav-item {
+                 flex-direction: row; /* آیتم ها کنار هم */
+                 padding: 5px 10px; /* تنظیم padding */
+                 gap: 5px; /* تنظیم gap */
+            }
+            .nav-item i { font-size: 14px; } /* اندازه آیکون */
+            .nav-item .fa-lang { font-size: 11px; } /* اندازه متن فارسی */
+            .nav-item .en-text { font-size: 8px; } /* اندازه متن انگلیسی */
+            
+            .navbar-nav-right {
+                margin-left: auto; /* آیتم های سمت راست را به سمت راست سوق می‌دهد */
+            }
+        }
+
+        /* استایل های بخش محتوا */
         .content-wrapper {
             padding: 40px 20px;
             text-align: center;
-            min-height: 70vh; /* حداقل ارتفاع برای نمایش بخش محتوا */
+            min-height: 70vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -278,12 +290,34 @@
         .content-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
         .content-title span { color: var(--accent-blue); }
         .content-desc { color: var(--text-gray); max-width: 600px; margin: 0 auto; font-size: 16px; line-height: 1.7; }
+        
+        /* استایل دکمه های کلی */
+        .btn-blue {
+            background: var(--accent-blue); color: white; border: none; padding: 14px 35px;
+            border-radius: 50px; font-weight: 600; margin-left: 15px;
+            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3); transition: 0.3s;
+        }
+        .btn-blue:hover { transform: translateY(-3px); background: #0073e6; }
+        
+        .btn-outline {
+            border: 1px solid #444; color: white; padding: 14px 35px; border-radius: 50px;
+            text-decoration: none; transition: 0.3s; display: inline-block;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #666; }
 
     </style>
 </head>
 <body>
 
 <nav class="glass-nav">
+    <!-- آیتم های سمت راست نوبار (EN و تماس) -->
+    <div class="navbar-nav-right">
+        <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
+            EN <i class="fa-solid fa-globe ms-1"></i>
+        </div>
+        <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+    </div>
+
     <!-- گروه لوگو و دکمه همبرگری (فقط در موبایل) -->
     <div class="navbar-brand-mobile d-block d-lg-none"> 
         <div class="brand-section">
@@ -299,14 +333,6 @@
         </button>
     </div>
 
-    <!-- آیتم های سمت راست نوبار (EN و تماس) -->
-    <div class="navbar-nav-right">
-        <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
-            EN <i class="fa-solid fa-globe ms-1"></i>
-        </div>
-        <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
-    </div>
-
     <!-- منوی ناوبری دسکتاپ -->
     <ul class="nav-menu d-none d-lg-flex"> <!-- مخفی در موبایل، نمایش در دسکتاپ -->
         <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
@@ -317,10 +343,10 @@
     </ul>
 </nav>
 
-<!-- Overlay برای بستن منو با کلیک خارج از آن -->
+<!-- Overlay -->
 <div class="overlay"></div>
 
-<!-- منوی موبایل (مخفی) -->
+<!-- منوی موبایل -->
 <ul class="mobile-nav-menu">
     <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
     <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
@@ -335,25 +361,22 @@
         به <span>ZimanoAI</span> خوش آمدید!
     </h1>
     <p class="content-desc">
-        این یک نمونه صفحه برای نمایش منوی ریسپانسیو است. در دسکتاپ منوی افقی و در موبایل منوی همبرگری اسلایدی را مشاهده خواهید کرد.
+        این یک نمونه صفحه برای نمایش منوی ریسپانسیو است. در دسکتاپ منوی افقی در وسط و در موبایل منوی همبرگری اسلایدی را مشاهده خواهید کرد.
     </p>
 </div>
 
 <script>
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const mobileNavMenu = document.querySelector('.mobile-nav-menu');
-    const overlay = document.querySelector('.overlay'); // دسترسی به overlay
+    const overlay = document.querySelector('.overlay'); 
 
-    // تابع برای باز و بسته کردن منوی موبایل
     function toggleMobileMenu() {
         mobileNavMenu.classList.toggle('active');
-        overlay.classList.toggle('active'); // فعال/غیرفعال کردن overlay
+        overlay.classList.toggle('active'); 
     }
 
-    // شنونده رویداد کلیک برای دکمه همبرگری
     mobileNavToggle.addEventListener('click', toggleMobileMenu);
 
-    // بستن منو با کلیک روی یکی از آیتم های منو
     const mobileNavItems = document.querySelectorAll('.mobile-nav-menu .nav-item a');
     mobileNavItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -362,7 +385,6 @@
         });
     });
 
-    // بستن منو با کلیک روی overlay
     overlay.addEventListener('click', () => {
         mobileNavMenu.classList.remove('active');
         overlay.classList.remove('active');
