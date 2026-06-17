@@ -1,417 +1,350 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZimanoAI | AI & Machine Vision</title>
-    
-    <!-- Bootstrap 5.3.3 RTL -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZimanoAI | AI & Machine Vision</title>
 
-    <style>
-        :root {
-            --bg-black: #030508;
-            --accent-blue: #0084ff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-gray: #888;
-        }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-black);
-            color: #ffffff;
-            font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-            padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
-        }
+<style>
+:root{
+--bg-black:#030508;
+--accent-blue:#0084ff;
+--glass-border:rgba(255,255,255,0.1);
+--text-gray:#888;
+}
 
-        /* Container اصلی با پس‌زمینه صنعتی */
-        .header-wrapper {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
-                        url('headerbackground.png'); /* نام فایل تصویر پس‌زمینه */
-            background-size: cover;
-            background-position: center;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            min-height: 92vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
+body{
+background:#030508;
+color:white;
+font-family:'Inter',sans-serif;
+padding:20px;
+margin:0;
+overflow-x:hidden;
+}
 
-        /* --- Glass Navbar Styles --- */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 10px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.header-wrapper{
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.85)),url('headerbackground.png');
+background-size:cover;
+background-position:center;
+border-radius:30px;
+border:1px solid var(--glass-border);
+min-height:92vh;
+display:flex;
+flex-direction:column;
+}
 
-        .brand-section {
-            display: flex;
-            align-items: center;
-            border-left: 1px solid var(--glass-border);
-            padding-left: 20px;
-        }
+.glass-nav{
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(15px);
+border-bottom:1px solid var(--glass-border);
+padding:10px 40px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
 
-        .brand-logo { width: 45px; margin-left: 12px; }
-        .brand-text h1 { color: white; font-size: 22px; margin: 0; font-weight: 800; }
-        .brand-text p { color: var(--text-gray); font-size: 10px; margin: 0; text-transform: uppercase; }
+.brand-section{
+display:flex;
+align-items:center;
+border-left:1px solid var(--glass-border);
+padding-left:20px;
+}
 
-        .nav-menu { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
-        .nav-item { text-align: center; text-decoration: none; transition: 0.3s; position: relative; }
-        .nav-item i { display: block; color: white; font-size: 18px; margin-bottom: 4px; opacity: 0.7; }
-        .nav-item .fa-lang { display: block; color: white; font-size: 13px; font-weight: 600; }
-        .nav-item .en-text { display: block; color: var(--text-gray); font-size: 9px; }
-        
-        .nav-item:hover i, .nav-item.active i { color: var(--accent-blue); opacity: 1; }
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -10px; left: 20%; width: 60%; height: 3px;
-            background: var(--accent-blue); border-radius: 10px;
-        }
+.brand-logo{width:45px;margin-left:12px;}
 
-        /* --- Sidebar & Hero Styles --- */
-        .left-sidebar {
-            padding: 60px 40px;
-            border-left: 1px solid var(--glass-border);
-            height: 100%;
-        }
+.brand-text h1{
+font-size:22px;
+margin:0;
+font-weight:800;
+}
 
-        .blue-dash { width: 40px; height: 4px; background: var(--accent-blue); margin-bottom: 25px; }
-        .sidebar-text { color: #aaa; font-size: 14px; line-height: 1.7; }
-        .sidebar-text span { color: var(--accent-blue); display: block; margin-bottom: 5px; font-weight: 700; }
+.brand-text p{
+color:var(--text-gray);
+font-size:10px;
+margin:0;
+text-transform:uppercase;
+}
 
-        .hero-section { padding: 80px 60px; }
-        .pre-title { color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700; margin-bottom: 15px; }
-        .hero-title { font-size: 3.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 25px; }
-        .hero-title span { color: var(--accent-blue); }
-        .hero-desc { color: var(--text-gray); max-width: 550px; font-size: 16px; margin-bottom: 40px; }
+.nav-menu{
+display:flex;
+gap:25px;
+list-style:none;
+margin:0;
+padding:0;
+}
 
-        /* Buttons */
-        .btn-blue {
-            background: var(--accent-blue); color: white; border: none; padding: 14px 35px;
-            border-radius: 50px; font-weight: 600; margin-left: 15px;
-            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3); transition: 0.3s;
-        }
-        .btn-blue:hover { transform: translateY(-3px); background: #0073e6; }
-        
-        .btn-outline {
-            border: 1px solid #444; color: white; padding: 14px 35px; border-radius: 50px;
-            text-decoration: none; transition: 0.3s; display: inline-block;
-        }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #666; }
+.nav-item{
+text-align:center;
+text-decoration:none;
+position:relative;
+}
 
-        /* Bottom Row */
-        .bottom-features {
-            margin-top: auto;
-            padding: 35px 60px;
-            background: rgba(0,0,0,0.3);
-            border-top: 1px solid var(--glass-border);
-        }
+.nav-item i{
+display:block;
+color:white;
+font-size:18px;
+margin-bottom:4px;
+opacity:.7;
+}
 
-        .feat-card { border-right: 2px solid var(--accent-blue); padding-right: 20px; }
-        .feat-card strong { display: block; font-size: 15px; margin-bottom: 5px; color: #fff; }
-        .feat-card span { color: var(--text-gray); font-size: 13px; }
+.fa-lang{
+display:block;
+color:white;
+font-size:13px;
+font-weight:600;
+}
 
-        @media (max-width: 992px) {
-            .hero-title { font-size: 2.5rem; }
-            .nav-menu { display: none; } /* برای سادگی در موبایل مخفی شد */
-        }
-        
-        /* دکمه همبرگری */
-        .hamburger-menu-toggle {
-            position: fixed; /* ثابت در صفحه */
-            top: 20px;
-            right: 20px; /* از سمت راست */
-            z-index: 1001; /* بالاتر از overlay */
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            padding: 10px;
-            transition: color 0.3s;
-        }
-        .hamburger-menu-toggle:hover {
-            color: #0084ff; /* رنگ لهجه */
-        }
+.en-text{
+display:block;
+color:var(--text-gray);
+font-size:9px;
+}
 
-        /* منوی کناری */
-        .hamburger-nav-menu {
-            position: fixed;
-            top: 0;
-            right: 0; /* از سمت راست */
-            width: 75%; /* یا هر عرض دلخواه */
-            max-width: 300px; /* حداکثر عرض */
-            height: 100vh;
-            background-color: #0a0c10; /* رنگ تیره */
-            transform: translateX(100%); /* مخفی شده در ابتدا */
-            transition: transform 0.3s ease-in-out;
-            z-index: 1002; /* بالاتر از همه */
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: -2px 0 10px rgba(0,0,0,0.3);
-        }
-        .hamburger-nav-menu.active {
-            transform: translateX(0); /* ظاهر می‌شود */
-        }
+.nav-item:hover i{
+color:var(--accent-blue);
+}
 
-        /* آیتم‌های منو */
-        .hamburger-nav-menu .nav-item {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 15px 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: color 0.3s, background-color 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* برای نمایش آیکون در سمت چپ */
-        }
-        .hamburger-nav-menu .nav-item i {
-            margin-left: 10px; /* فاصله آیکون از متن */
-        }
-        .hamburger-nav-menu .nav-item:last-child {
-            border-bottom: none;
-        }
-        .hamburger-nav-menu .nav-item:hover {
-            color: #0084ff;
-            background-color: rgba(255,255,255,0.05);
-        }
-        
-        /* دکمه بستن */
-        .hamburger-nav-menu .close-btn {
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: white;
-            cursor: pointer;
-            align-self: flex-start; /* سمت چپ */
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
+@media(max-width:992px){
+.nav-menu{display:none;}
+}
 
-        /* Overlay (برای بستن با کلیک خارج از منو) */
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000; /* زیر منوی کناری */
-            display: none; /* مخفی */
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        #overlay.active {
-            display: block;
-            opacity: 1;
-        }
+.hamburger-menu-toggle{
+position:fixed;
+top:20px;
+right:20px;
+z-index:1001;
+background:none;
+border:none;
+color:white;
+font-size:28px;
+cursor:pointer;
+}
 
-        /* جلوگیری از اسکرول صفحه اصلی هنگام باز بودن منو */
-        body.menu-open {
-            overflow: hidden;
-        }
+.hamburger-nav-menu{
+position:fixed;
+top:0;
+right:0;
+width:75%;
+max-width:300px;
+height:100vh;
+background:#0a0c10;
+transform:translateX(100%);
+transition:.3s;
+z-index:1002;
+display:flex;
+flex-direction:column;
+padding:20px;
+}
 
-        /* منطقه اصلی محتوا */
-        .main-content-area {
-            padding: 80px 20px 20px 20px; /* کمی فاصله از بالا */
-        }
-        .main-content-area h2 {
-            color: #0084ff;
-            margin-bottom: 20px;
-        }
-    </style>
+.hamburger-nav-menu.active{
+transform:translateX(0);
+}
+
+.hamburger-nav-menu .nav-item{
+color:#ccc;
+text-decoration:none;
+font-size:18px;
+padding:15px 10px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.hamburger-nav-menu .nav-item:hover{
+color:#0084ff;
+}
+
+.close-btn{
+background:none;
+border:none;
+font-size:28px;
+color:white;
+cursor:pointer;
+align-self:flex-start;
+margin-bottom:20px;
+}
+
+#overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+z-index:1000;
+display:none;
+}
+
+#overlay.active{
+display:block;
+}
+
+body.menu-open{
+overflow:hidden;
+}
+</style>
 </head>
+
 <body>
 
 <div class="header-wrapper">
-    
-    <!-- Glass Navbar یکپارچه شده -->
-    <nav class="glass-nav">
-        <div class="brand-section">
-            <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
-            <div class="brand-text">
-                <h1>ZimanoAI</h1>
-                <p>AI & Machine Vision</p>
-            </div>
-        </div>
 
-        <ul class="nav-menu">
-            <li><a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span class="fa-lang">خانه</span><span class="en-text">Home</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-microchip"></i><span class="fa-lang">محصولات</span><span class="en-text">Products</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-brain"></i><span class="fa-lang">هوش مصنوعی</span><span class="en-text">AI Solutions</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-camera"></i><span class="fa-lang">بینایی ماشین</span><span class="en-text">Machine Vision</span></a></li>
-            <li><a href="#" class="nav-item"><i class="fa-solid fa-building"></i><span class="fa-lang">درباره ما</span><span class="en-text">About Us</span></a></li>
-        </ul>
+<nav class="glass-nav">
 
-        <div class="d-flex align-items-center">
-            <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
-                EN <i class="fa-solid fa-globe ms-1"></i>
-            </div>
-            <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
-        </div>
-    </nav>
-
-    <div class="container-fluid flex-grow-1">
-        <div class="row h-100">
-            
-            <!-- Hero Content (سمت راست در RTL) -->
-            <div class="col-md-9 position-relative">
-                <div class="hero-section">
-                    <div class="pre-title">Next-Gen AI Systems</div>
-                    <div class="pre-title">نسل آینده اتوماسیون هوشمند</div>
-                    <h1 class="hero-title">
-                        Precision. Intelligence.<br>
-                        <span>Performance.</span>
-                        دقت. هوش<br>
-                        <span>کارایی بالا.</span>
-                    </h1>
-                    <p class="hero-desc">
-                        ZimanoAI با بهره‌گیری از پیشرفته‌ترین سیستم‌های بینایی ماشین، دقت و سرعت را به خطوط تولید شما می‌آورد. آینده اتوماسیون اینجاست.
-                    </p>
-                    
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-blue">پروژه ها</button>
-                        <a href="#" class="btn-outline">تماس با ما ←</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Left Sidebar (سمت چپ در RTL) -->
-            <div class="col-md-3 d-none d-md-block p-0">
-                <div class="left-sidebar">
-                    <div class="blue-dash"></div>
-                    <div class="sidebar-text">
-                        <span>Modern Automation</span>
-                        <span>اتوماسیون مدرن</span>
-                        ترکیب هوش مصنوعی و سخت‌افزارهای صنعتی برای رسیدن به بالاترین سطح کارایی در تولید.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Features Bottom Row -->
-    <div class="bottom-features">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>High Accuracy</strong>
-                    <span>دقت بازرسی تا 99.9 درصد</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>Real-time Processing</strong>
-                    <span>پردازش آنی تصاویر بدون تاخیر</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feat-card">
-                    <strong>Smart Integration</strong>
-                    <span>یکپارچه‌سازی آسان با PLC و SCADA</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="brand-section">
+<img src="logositezimanoai.png" class="brand-logo">
+<div class="brand-text">
+<h1>ZimanoAI</h1>
+<p>AI & Machine Vision</p>
 </div>
-        <!-- دکمه همبرگری -->
-    <button id="hamburger-menu-toggle" class="hamburger-menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
+</div>
 
-    <!-- Overlay -->
-    <div id="overlay"></div>
+<ul class="nav-menu">
 
-    <!-- منوی کناری ناوبری -->
-    <nav id="hamburger-nav-menu" class="hamburger-nav-menu">
-        <button class="close-btn" id="hamburger-nav-close">
-            <i class="fas fa-times"></i>
-        </button>
-        
-        <!-- آیتم‌های منو - می‌توانید این‌ها را تغییر دهید -->
-        <a href="#home" class="nav-item">
-            <span>خانه</span>
-            <i class="fas fa-home"></i>
-        </a>
-        <a href="#products" class="nav-item">
-            <span>محصولات</span>
-            <i class="fas fa-box"></i>
-        </a>
-        <a href="#ai-solutions" class="nav-item">
-            <span>هوش مصنوعی</span>
-            <i class="fas fa-brain"></i>
-        </a>
-        <a href="#machine-vision" class="nav-item">
-            <span>بینایی ماشین</span>
-            <i class="fas fa-camera"></i>
-        </a>
-        <a href="#about-us" class="nav-item">
-            <span>درباره ما</span>
-            <i class="fas fa-building"></i>
-        </a>
-    </nav>
+<li>
+<a href="#" class="nav-item active">
+<i class="fa-solid fa-house"></i>
+<span class="fa-lang">خانه</span>
+<span class="en-text">Home</span>
+</a>
+</li>
 
-    <!-- بخش اصلی محتوا (فقط برای نمایش) -->
-    <div class="main-content-area">
+<li>
+<a href="#" class="nav-item">
+<i class="fa-solid fa-microchip"></i>
+<span class="fa-lang">محصولات</span>
+<span class="en-text">Products</span>
+</a>
+</li>
 
-    </div>
+<li>
+<a href="#" class="nav-item">
+<i class="fa-solid fa-industry"></i>
+<span class="fa-lang">اتوماسیون صنعتی، PLC و اسکادا</span>
+<span class="en-text">Industrial Automation</span>
+</a>
+</li>
 
-    <script>
-        const hamburgerToggle = document.getElementById('hamburger-menu-toggle');
-        const hamburgerMenu = document.getElementById('hamburger-nav-menu');
-        const overlay = document.getElementById('overlay');
-        const hamburgerClose = document.getElementById('hamburger-nav-close');
-        const body = document.body;
+<li>
+<a href="#" class="nav-item">
+<i class="fa-solid fa-brain"></i>
+<span class="fa-lang">هوش مصنوعی</span>
+<span class="en-text">AI Solutions</span>
+</a>
+</li>
 
-        function toggleMenu() {
-            hamburgerMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            body.classList.toggle('menu-open'); // جلوگیری از اسکرول پس‌زمینه
+<li>
+<a href="#" class="nav-item">
+<i class="fa-solid fa-camera"></i>
+<span class="fa-lang">بینایی ماشین</span>
+<span class="en-text">Machine Vision</span>
+</a>
+</li>
 
-            const icon = hamburgerToggle.querySelector('i');
-            if (hamburgerMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        }
+<li>
+<a href="#" class="nav-item">
+<i class="fa-solid fa-building"></i>
+<span class="fa-lang">درباره ما</span>
+<span class="en-text">About Us</span>
+</a>
+</li>
 
-        // فعال کردن toggle
-        hamburgerToggle.addEventListener('click', toggleMenu);
+</ul>
 
-        // بستن با overlay
-        overlay.addEventListener('click', toggleMenu);
+<div class="d-flex align-items-center">
 
-        // بستن با دکمه close
-        hamburgerClose.addEventListener('click', toggleMenu);
+<div class="text-white me-4" style="font-size:13px;cursor:pointer;">
+EN <i class="fa-solid fa-globe ms-1"></i>
+</div>
 
-        // بستن منو هنگام کلیک روی یکی از آیتم‌های ناوبری
-        document.querySelectorAll('.hamburger-nav-menu .nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                if (hamburgerMenu.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
-        });
-    </script>
+<a href="#" class="btn btn-primary">تماس با ما</a>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+</nav>
+
+</div>
+
+<button id="hamburger-menu-toggle" class="hamburger-menu-toggle">
+<i class="fas fa-bars"></i>
+</button>
+
+<div id="overlay"></div>
+
+<nav id="hamburger-nav-menu" class="hamburger-nav-menu">
+
+<button class="close-btn" id="hamburger-nav-close">
+<i class="fas fa-times"></i>
+</button>
+
+<a href="#" class="nav-item">
+<span>خانه</span>
+<i class="fas fa-home"></i>
+</a>
+
+<a href="#" class="nav-item">
+<span>محصولات</span>
+<i class="fas fa-box"></i>
+</a>
+
+<a href="#" class="nav-item">
+<span>اتوماسیون صنعتی، PLC و اسکادا</span>
+<i class="fas fa-industry"></i>
+</a>
+
+<a href="#" class="nav-item">
+<span>هوش مصنوعی</span>
+<i class="fas fa-brain"></i>
+</a>
+
+<a href="#" class="nav-item">
+<span>بینایی ماشین</span>
+<i class="fas fa-camera"></i>
+</a>
+
+<a href="#" class="nav-item">
+<span>درباره ما</span>
+<i class="fas fa-building"></i>
+</a>
+
+</nav>
+
+<script>
+
+const hamburgerToggle=document.getElementById('hamburger-menu-toggle');
+const hamburgerMenu=document.getElementById('hamburger-nav-menu');
+const overlay=document.getElementById('overlay');
+const hamburgerClose=document.getElementById('hamburger-nav-close');
+const body=document.body;
+
+function toggleMenu(){
+
+hamburgerMenu.classList.toggle('active');
+overlay.classList.toggle('active');
+body.classList.toggle('menu-open');
+
+const icon=hamburgerToggle.querySelector('i');
+
+if(hamburgerMenu.classList.contains('active')){
+icon.classList.remove('fa-bars');
+icon.classList.add('fa-times');
+}else{
+icon.classList.remove('fa-times');
+icon.classList.add('fa-bars');
+}
+
+}
+
+hamburgerToggle.addEventListener('click',toggleMenu);
+overlay.addEventListener('click',toggleMenu);
+hamburgerClose.addEventListener('click',toggleMenu);
+
+</script>
+
 </body>
 </html>
