@@ -127,6 +127,112 @@
             .hero-title { font-size: 2.5rem; }
             .nav-menu { display: none; } /* برای سادگی در موبایل مخفی شد */
         }
+        
+        /* دکمه همبرگری */
+        .hamburger-menu-toggle {
+            position: fixed; /* ثابت در صفحه */
+            top: 20px;
+            right: 20px; /* از سمت راست */
+            z-index: 1001; /* بالاتر از overlay */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+        .hamburger-menu-toggle:hover {
+            color: #0084ff; /* رنگ لهجه */
+        }
+
+        /* منوی کناری */
+        .hamburger-nav-menu {
+            position: fixed;
+            top: 0;
+            right: 0; /* از سمت راست */
+            width: 75%; /* یا هر عرض دلخواه */
+            max-width: 300px; /* حداکثر عرض */
+            height: 100vh;
+            background-color: #0a0c10; /* رنگ تیره */
+            transform: translateX(100%); /* مخفی شده در ابتدا */
+            transition: transform 0.3s ease-in-out;
+            z-index: 1002; /* بالاتر از همه */
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+        }
+        .hamburger-nav-menu.active {
+            transform: translateX(0); /* ظاهر می‌شود */
+        }
+
+        /* آیتم‌های منو */
+        .hamburger-nav-menu .nav-item {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: color 0.3s, background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* برای نمایش آیکون در سمت چپ */
+        }
+        .hamburger-nav-menu .nav-item i {
+            margin-left: 10px; /* فاصله آیکون از متن */
+        }
+        .hamburger-nav-menu .nav-item:last-child {
+            border-bottom: none;
+        }
+        .hamburger-nav-menu .nav-item:hover {
+            color: #0084ff;
+            background-color: rgba(255,255,255,0.05);
+        }
+        
+        /* دکمه بستن */
+        .hamburger-nav-menu .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            align-self: flex-start; /* سمت چپ */
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        /* Overlay (برای بستن با کلیک خارج از منو) */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000; /* زیر منوی کناری */
+            display: none; /* مخفی */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* جلوگیری از اسکرول صفحه اصلی هنگام باز بودن منو */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* منطقه اصلی محتوا */
+        .main-content-area {
+            padding: 80px 20px 20px 20px; /* کمی فاصله از بالا */
+        }
+        .main-content-area h2 {
+            color: #0084ff;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -223,6 +329,90 @@
         </div>
     </div>
 </div>
+        <!-- دکمه همبرگری -->
+    <button id="hamburger-menu-toggle" class="hamburger-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- منوی کناری ناوبری -->
+    <nav id="hamburger-nav-menu" class="hamburger-nav-menu">
+        <button class="close-btn" id="hamburger-nav-close">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <!-- آیتم‌های منو - می‌توانید این‌ها را تغییر دهید -->
+        <a href="#home" class="nav-item">
+            <span>خانه</span>
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="#products" class="nav-item">
+            <span>محصولات</span>
+            <i class="fas fa-box"></i>
+        </a>
+        <a href="#ai-solutions" class="nav-item">
+            <span>هوش مصنوعی</span>
+            <i class="fas fa-brain"></i>
+        </a>
+        <a href="#machine-vision" class="nav-item">
+            <span>بینایی ماشین</span>
+            <i class="fas fa-camera"></i>
+        </a>
+        <a href="#about-us" class="nav-item">
+            <span>درباره ما</span>
+            <i class="fas fa-building"></i>
+        </a>
+    </nav>
+
+    <!-- بخش اصلی محتوا (فقط برای نمایش) -->
+    <div class="main-content-area">
+        <h2>محتوای اصلی صفحه</h2>
+        <p>اینجا محتوای اصلی صفحه شما قرار می‌گیرد. وقتی دکمه همبرگری را بزنید، منوی کناری ظاهر می‌شود.</p>
+        <!-- ... بقیه محتوای صفحه شما ... -->
+    </div>
+
+    <script>
+        const hamburgerToggle = document.getElementById('hamburger-menu-toggle');
+        const hamburgerMenu = document.getElementById('hamburger-nav-menu');
+        const overlay = document.getElementById('overlay');
+        const hamburgerClose = document.getElementById('hamburger-nav-close');
+        const body = document.body;
+
+        function toggleMenu() {
+            hamburgerMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            body.classList.toggle('menu-open'); // جلوگیری از اسکرول پس‌زمینه
+
+            const icon = hamburgerToggle.querySelector('i');
+            if (hamburgerMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // فعال کردن toggle
+        hamburgerToggle.addEventListener('click', toggleMenu);
+
+        // بستن با overlay
+        overlay.addEventListener('click', toggleMenu);
+
+        // بستن با دکمه close
+        hamburgerClose.addEventListener('click', toggleMenu);
+
+        // بستن منو هنگام کلیک روی یکی از آیتم‌های ناوبری
+        document.querySelectorAll('.hamburger-nav-menu .nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (hamburgerMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
