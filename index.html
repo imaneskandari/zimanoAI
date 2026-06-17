@@ -83,6 +83,16 @@ text-decoration:none;
 position:relative;
 }
 
+/* اصلاح برای آیکون‌های تصویری */
+.nav-item img {
+display:block;
+width:24px;
+height:24px;
+margin:0 auto 4px auto;
+opacity:.7;
+transition: .3s;
+}
+
 .nav-item i{
 display:block;
 color:white;
@@ -104,8 +114,9 @@ color:var(--text-gray);
 font-size:9px;
 }
 
-.nav-item:hover i{
-color:var(--accent-blue);
+.nav-item:hover i, .nav-item:hover img{
+opacity: 1;
+filter: drop-shadow(0 0 5px var(--accent-blue));
 }
 
 @media(max-width:992px){
@@ -240,9 +251,9 @@ overflow:hidden;
 
 <li>
 <a href="#" class="nav-item">
-<i class="fa-solid fa-camera"></i>
-<span class="fa-lang">بینایی ماشین</span>
-<span class="en-text">Machine Vision</span>
+<img src="image_gen_74a1ef5f-da43-4fd6-9b02-e919cfeb0b3b_0.png" alt="Projects">
+<span class="fa-lang">پروژه‌های ما</span>
+<span class="en-text">Our Projects</span>
 </a>
 </li>
 
@@ -303,8 +314,8 @@ EN <i class="fa-solid fa-globe ms-1"></i>
 </a>
 
 <a href="#" class="nav-item">
-<span>بینایی ماشین</span>
-<i class="fas fa-camera"></i>
+<span>پروژه‌های ما</span>
+<img src="image_gen_74a1ef5f-da43-4fd6-9b02-e919cfeb0b3b_0.png" style="width:24px; height:24px; margin-right: 10px;" alt="Projects">
 </a>
 
 <a href="#" class="nav-item">
