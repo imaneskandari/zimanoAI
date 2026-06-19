@@ -17,22 +17,36 @@
 
     <style>
         :root {
-            --bg-black: #030508;
-            --accent-blue: #0084ff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-gray: #888;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            /* رنگ پس‌زمینه کارت‌ها */
-            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            /* سایه عمیق‌تر کارت‌ها */
-            --section-padding: 80px 0;
-            /* فاصله بالا و پایین بخش‌ها */
+            /* رنگ‌های اصلی پس‌زمینه */
+            --bg-dark: #2196e4;
+            --bg-card: #2196e4;
+
+            /* رنگ‌های برند و اکشن */
+            --primary: #3b82f6;
+            /* آبی هوشمند */
+            --primary-glow: #3b82f64d;
+            /* آبی با شفافیت برای سایه‌ها */
+            --accent: #10b981;
+            /* سبز زمردی (نماد اوکی بودن و تکنولوژی) */
+            --secondary: #6366f1;
+            /* بنفش/نیلی برای گرادینت */
+
+            /* طیف خاکستری برای متون */
+            --text-main: #f8fafc;
+            /* سفید اصلی */
+            --text-muted: #fbffff;
+            /* خاکستری برای توضیحات */
+
+            /* گرادینت‌های خفن برای دکمه‌ها و تایتل‌ها */
+            --gradient-tech: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            --gradient-dark: linear-gradient(180deg, rgba(158, 84, 142, 0) 0%, rgba(158, 84, 142, 0) 100%);
         }
 
+
         body {
-            background-color: var(--bg-black);
-            color: #ffffff;
+                background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+        url('header1.png') center/cover no-repeat;
+            color: #c5469b;
             font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
             margin: 0;
             overflow-x: hidden;
@@ -41,14 +55,63 @@
 
         /* --- Overall Container & Background --- */
         .main-wrapper {
-            background: linear-gradient(rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 0.95)),
-                url('headerbackground.png') center/cover no-repeat;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             position: relative;
+            padding: 40px;
+            /* فاصله کارت‌ها از لبه بک‌گراند */
+            border-radius: 70px;
+            /* گرد کردن گوشه‌های بک‌گراند */
             overflow: hidden;
-            /* برای جلوگیری از بیرون زدن عناصر */
+            /* آدرس تصویر بک‌گراند خودت را اینجا بگذار */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('header1.png') center/cover no-repeat;
+            box-shadow: 0 20px 40px rgba(243, 4, 4, 0.2);
+        }
+
+        .projects {
+            position: relative;
+            padding: 40px;
+            /* فاصله کارت‌ها از لبه بک‌گراند */
+            border-radius: 30px;
+            /* گرد کردن گوشه‌های بک‌گراند */
+            overflow: hidden;
+            /* آدرس تصویر بک‌گراند خودت را اینجا بگذار */
+            background: url('header1.png') center/cover no-repeat;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .ai {
+            position: relative;
+            padding: 70px;
+            /* فاصله کارت‌ها از لبه بک‌گراند */
+            border-radius: 30px;
+            /* گرد کردن گوشه‌های بک‌گراند */
+            overflow: hidden;
+            /* آدرس تصویر بک‌گراند خودت را اینجا بگذار */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('header1.png') center/cover no-repeat;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .automation {
+            position: relative;
+            padding: 40px;
+            /* فاصله کارت‌ها از لبه بک‌گراند */
+            border-radius: 30px;
+            /* گرد کردن گوشه‌های بک‌گراند */
+            overflow: hidden;
+            /* آدرس تصویر بک‌گراند خودت را اینجا بگذار */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('header1.png') center/cover no-repeat;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .maghale {
+            position: relative;
+            padding: 40px;
+            /* فاصله کارت‌ها از لبه بک‌گراند */
+            border-radius: 30px;
+            /* گرد کردن گوشه‌های بک‌گراند */
+            overflow: hidden;
+            /* آدرس تصویر بک‌گراند خودت را اینجا بگذار */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('header1.png') center/cover no-repeat;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         /* --- Glass Navbar Styles --- */
@@ -348,6 +411,7 @@
 
         /* --- Bottom Features Section --- */
         .bottom-features {
+
             padding: 60px 0;
             background-color: rgba(0, 0, 0, 0.2);
             border-top: 1px solid var(--glass-border);
@@ -674,10 +738,13 @@
         /* --- Automation Services Carousel Section --- */
         /* --- Automation Services Carousel Section --- */
         .automation-services-section {
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)),
+                url('header1.png') center/cover no-repeat;
             padding: var(--section-padding);
             position: relative;
             z-index: 10;
-            background: linear-gradient(rgba(3, 5, 8, 0.85), rgba(3, 5, 8, 0.95));
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)),
+                url('header1.png') center/cover no-repeat;
             /* اصلاح شده: پرانتز اضافی حذف شد */
         }
 
@@ -759,7 +826,7 @@
 
         .automation-services-section .card-item .card-text {
             font-size: 0.9rem;
-            color: #ccc;
+            color: #ffffff;
             margin-bottom: 30px;
             opacity: 0.9;
             flex-grow: 1;
@@ -835,6 +902,12 @@
             /* گرد کردن لبه‌ها */
             box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
             /* ایجاد کمی سایه برای عمق‌دهی */
+        }
+
+        .automation-services-section .service-card {
+            background: rgba(255, 255, 255, 0.75);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
 
@@ -1036,6 +1109,8 @@
 
             /* تنظیمات کروسل برای موبایل: 1 کارت در هر ردیف */
             .automation-services-section .row.g-4>div {
+                background: linear-gradient(rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 0.95)),
+                    url('header1.png') center/cover no-repeat;
                 flex: 0 0 100%;
                 max-width: 100%;
             }
@@ -1231,91 +1306,94 @@
     <!-- Automation Services Carousel Section -->
     <section class="automation-services-section">
         <div class="container">
-            <h2 class="section-title">خدمات ما در حوزه اتوماسیون صنعتی</h2>
+            <h2 class="section-title text-center mb-5" style="color: #FF4D9D;">خدمات ما در حوزه اتوماسیون صنعتی</h2>
+
             <div class="blue-underline"></div>
 
 
             <div id="automationCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
                 data-bs-interval="5000">
-                <div class="carousel-inner">
-                    <!-- Slide 1 -->
-                    <div class="carousel-item active">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">PLC Programming</h5>
-                                    <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
-                                    <p class="card-text">
-                                        برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
-                                        Delta.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                <div class="automation">
+                    <div class="carousel-inner">
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">PLC Programming</h5>
+                                        <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
+                                        <p class="card-text">
+                                            برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
+                                            Delta.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">SCADA Systems</h5>
-                                    <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
-                                    <p class="card-text">
-                                        طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">SCADA Systems</h5>
+                                        <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
+                                        <p class="card-text">
+                                            طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Industrial IoT</h5>
-                                    <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
-                                    <p class="card-text">
-                                        اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="carousel-item">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Machine Vision</h5>
-                                    <h6 class="card-subtitle">بینایی ماشین</h6>
-                                    <p class="card-text">
-                                        سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">HMI Design</h5>
-                                    <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
-                                    <p class="card-text">
-                                        طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Panel Design</h5>
-                                    <h6 class="card-subtitle">طراحی تابلو برق</h6>
-                                    <p class="card-text">
-                                        طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Industrial IoT</h5>
+                                        <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
+                                        <p class="card-text">
+                                            اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-item">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Machine Vision</h5>
+                                        <h6 class="card-subtitle">بینایی ماشین</h6>
+                                        <p class="card-text">
+                                            سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">HMI Design</h5>
+                                        <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
+                                        <p class="card-text">
+                                            طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Panel Design</h5>
+                                        <h6 class="card-subtitle">طراحی تابلو برق</h6>
+                                        <p class="card-text">
+                                            طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more slides as needed -->
                     </div>
-                    <!-- Add more slides as needed -->
                 </div>
                 <!-- Controls -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#automationCarousel"
@@ -1333,103 +1411,104 @@
     </section>
     <section class="automation-services-section">
         <div class="container">
-            <h2 class="section-title">خدمات ما در حوزه هوش مصنوعی</h2>
+            <h2 class="section-title text-center mb-5" style="color: #FF4D9D;">خدمات ما در حوزه هوش مصنوعی</h2>
             <div class="blue-underline"></div>
 
-
-            <div id="automationCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
-                data-bs-interval="5000">
-                <div class="carousel-inner">
-                    <!-- Slide 1 -->
-                    <div class="carousel-item active">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">PLC Programming</h5>
-                                    <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
-                                    <p class="card-text">
-                                        برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
-                                        Delta.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+            <div class="ai">
+                <div id="automationCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                    data-bs-interval="5000">
+                    <div class="carousel-inner">
+                        <!-- Slide 1 -->
+                        <div class="carousel-item active">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">PLC Programming</h5>
+                                        <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
+                                        <p class="card-text">
+                                            برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
+                                            Delta.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">SCADA Systems</h5>
-                                    <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
-                                    <p class="card-text">
-                                        طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">SCADA Systems</h5>
+                                        <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
+                                        <p class="card-text">
+                                            طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Industrial IoT</h5>
-                                    <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
-                                    <p class="card-text">
-                                        اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="carousel-item">
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Machine Vision</h5>
-                                    <h6 class="card-subtitle">بینایی ماشین</h6>
-                                    <p class="card-text">
-                                        سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">HMI Design</h5>
-                                    <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
-                                    <p class="card-text">
-                                        طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card-item">
-                                    <div class="blue-dash"></div>
-                                    <h5 class="card-title">Panel Design</h5>
-                                    <h6 class="card-subtitle">طراحی تابلو برق</h6>
-                                    <p class="card-text">
-                                        طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
-                                    </p>
-                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Industrial IoT</h5>
+                                        <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
+                                        <p class="card-text">
+                                            اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-item">
+                            <div class="row g-4 justify-content-center">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Machine Vision</h5>
+                                        <h6 class="card-subtitle">بینایی ماشین</h6>
+                                        <p class="card-text">
+                                            سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">HMI Design</h5>
+                                        <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
+                                        <p class="card-text">
+                                            طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card-item">
+                                        <div class="blue-dash"></div>
+                                        <h5 class="card-title">Panel Design</h5>
+                                        <h6 class="card-subtitle">طراحی تابلو برق</h6>
+                                        <p class="card-text">
+                                            طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
+                                        </p>
+                                        <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more slides as needed -->
                     </div>
-                    <!-- Add more slides as needed -->
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#automationCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">قبلی</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#automationCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">بعدی</span>
+                    </button>
                 </div>
-                <!-- Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#automationCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">قبلی</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#automationCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">بعدی</span>
-                </button>
             </div>
         </div>
     </section>
@@ -1438,311 +1517,338 @@
     <section class="our-projects-section py-5">
         <div class="container">
             <h2 class="section-title text-center mb-5">پروژه‌های ما</h2>
+            <div class="blue-underline"></div>
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-                <div class="carousel-inner">
-                    <!-- Carousel Item 1 - Row of 5 Project Cards -->
-                    <div class="carousel-item active">
-                        <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
+                <div class="projects">
+                    <div class="carousel-inner">
+                        <!-- Carousel Item 1 - Row of 5 Project Cards -->
+                        <div class="carousel-item active">
+                            <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
 
-                            <!-- Project Card 1 -->
-                            <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-1.jpg" class="card-img-top" alt="Project 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه اول</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 1 -->
+                                <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-1.jpg" class="card-img-top"
+                                            alt="Project 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه اول</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 2 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-2.jpg" class="card-img-top" alt="Project 2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه دوم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 2 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-2.jpg" class="card-img-top"
+                                            alt="Project 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه دوم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 3 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-3.jpg" class="card-img-top" alt="Project 3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه سوم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 3 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-3.jpg" class="card-img-top"
+                                            alt="Project 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه سوم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 4 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-4.jpg" class="card-img-top" alt="Project 4">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه چهارم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 4 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-4.jpg" class="card-img-top"
+                                            alt="Project 4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه چهارم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 5 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-5.jpg" class="card-img-top" alt="Project 5">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه پنجم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 5 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-5.jpg" class="card-img-top"
+                                            alt="Project 5">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه پنجم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
-                    <div class="carousel-item">
-                        <div class="row g-4">
+                        <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
+                        <div class="carousel-item">
+                            <div class="row g-4">
 
-                            <!-- Project Card 6 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-6.jpg" class="card-img-top" alt="Project 6">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه ششم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 6 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-6.jpg" class="card-img-top"
+                                            alt="Project 6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه ششم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 7 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-7.jpg" class="card-img-top" alt="Project 7">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه هفتم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 7 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-7.jpg" class="card-img-top"
+                                            alt="Project 7">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه هفتم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 8 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-8.jpg" class="card-img-top" alt="Project 8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه هشتم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 8 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-8.jpg" class="card-img-top"
+                                            alt="Project 8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه هشتم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 9 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-9.jpg" class="card-img-top" alt="Project 9">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه نهم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 9 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-9.jpg" class="card-img-top"
+                                            alt="Project 9">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه نهم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 10 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-10.jpg" class="card-img-top" alt="Project 10">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه دهم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 10 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-10.jpg" class="card-img-top"
+                                            alt="Project 10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه دهم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <!-- Add more carousel-item divs for more rows of projects -->
+                        <!-- Add more carousel-item divs for more rows of projects -->
 
+                    </div>
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
     </section>
+
     <section class="our-projects-section py-5">
         <div class="container">
             <h2 class="section-title text-center mb-5">مقاله ها </h2>
+            <div class="blue-underline"></div>
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-                <div class="carousel-inner">
-                    <!-- Carousel Item 1 - Row of 5 Project Cards -->
-                    <div class="carousel-item active">
-                        <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
+                <div class="maghale">
+                    <div class="carousel-inner">
+                        <!-- Carousel Item 1 - Row of 5 Project Cards -->
+                        <div class="carousel-item active">
+                            <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
 
-                            <!-- Project Card 1 -->
-                            <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-1.jpg" class="card-img-top" alt="Project 1">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه اول</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 1 -->
+                                <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-1.jpg" class="card-img-top"
+                                            alt="Project 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه اول</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 2 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-2.jpg" class="card-img-top" alt="Project 2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه دوم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 2 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-2.jpg" class="card-img-top"
+                                            alt="Project 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه دوم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 3 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-3.jpg" class="card-img-top" alt="Project 3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه سوم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 3 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-3.jpg" class="card-img-top"
+                                            alt="Project 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه سوم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 4 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-4.jpg" class="card-img-top" alt="Project 4">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه چهارم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 4 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-4.jpg" class="card-img-top"
+                                            alt="Project 4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه چهارم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 5 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-5.jpg" class="card-img-top" alt="Project 5">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه پنجم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 5 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-5.jpg" class="card-img-top"
+                                            alt="Project 5">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه پنجم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
-                    <div class="carousel-item">
-                        <div class="row g-4">
+                        <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
+                        <div class="carousel-item">
+                            <div class="row g-4">
 
-                            <!-- Project Card 6 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-6.jpg" class="card-img-top" alt="Project 6">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه ششم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 6 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-6.jpg" class="card-img-top"
+                                            alt="Project 6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه ششم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 7 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-7.jpg" class="card-img-top" alt="Project 7">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه هفتم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 7 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-7.jpg" class="card-img-top"
+                                            alt="Project 7">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه هفتم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 8 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-8.jpg" class="card-img-top" alt="Project 8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه هشتم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 8 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-8.jpg" class="card-img-top"
+                                            alt="Project 8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه هشتم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 9 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-9.jpg" class="card-img-top" alt="Project 9">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه نهم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 9 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-9.jpg" class="card-img-top"
+                                            alt="Project 9">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه نهم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Project Card 10 -->
-                            <div class="col-md-4 col-lg-2_4">
-                                <div class="card project-card h-100">
-                                    <img src="path/to/your/project-image-10.jpg" class="card-img-top" alt="Project 10">
-                                    <div class="card-body">
-                                        <h5 class="card-title">نام پروژه دهم</h5>
-                                        <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
-                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                <!-- Project Card 10 -->
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="path/to/your/project-image-10.jpg" class="card-img-top"
+                                            alt="Project 10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">نام پروژه دهم</h5>
+                                            <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <!-- Add more carousel-item divs for more rows of projects -->
+                        <!-- Add more carousel-item divs for more rows of projects -->
 
+                    </div>
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
                 </div>
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
+        </div>
         </div>
     </section>
     <!-- Footer Section -->
