@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
     <style>
         :root {
             --bg-black: #030508;
@@ -23,43 +22,55 @@
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-gray: #888;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            /* رنگ پس‌زمینه کارت‌ها */
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            /* سایه عمیق‌تر کارت‌ها */
+            --section-padding: 80px 0;
+            /* فاصله بالا و پایین بخش‌ها */
         }
 
         body {
             background-color: var(--bg-black);
             color: #ffffff;
             font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
-            padding: 20px;
             margin: 0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Container اصلی با پس‌زمینه صنعتی */
-        .header-wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.85)),
-                url('headerbackground.png');
-            /* نام فایل تصویر پس‌زمینه */
-            background-size: cover;
-            background-position: center;
-            border-radius: 30px;
-            border: 1px solid var(--glass-border);
-            min-height: 92vh;
+        /* --- Overall Container & Background --- */
+        .main-wrapper {
+            background: linear-gradient(rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 0.95)),
+                url('headerbackground.png') center/cover no-repeat;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
+            /* برای جلوگیری از بیرون زدن عناصر */
         }
 
         /* --- Glass Navbar Styles --- */
         .glass-nav {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            padding: 10px 40px;
+            padding: 15px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            /* اطمینان از بالای همه عناصر */
+            transition: background-color 0.3s ease;
+        }
+
+        .glass-nav.scrolled {
+            background: rgba(3, 5, 8, 0.8);
+            /* کمی تیره‌تر در زمان اسکرول */
         }
 
         .brand-section {
@@ -70,27 +81,35 @@
         }
 
         .brand-logo {
-            width: 45px;
+            width: 50px;
+            /* کمی بزرگتر */
             margin-left: 12px;
+            filter: drop-shadow(0 0 10px var(--accent-blue));
+            /* هاله آبی دور لوگو */
         }
 
         .brand-text h1 {
             color: white;
-            font-size: 22px;
+            font-size: 26px;
+            /* کمی بزرگتر */
             margin: 0;
             font-weight: 800;
+            letter-spacing: 1px;
         }
 
         .brand-text p {
             color: var(--text-gray);
-            font-size: 10px;
+            font-size: 11px;
+            /* کمی بزرگتر */
             margin: 0;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-menu {
             display: flex;
-            gap: 25px;
+            gap: 30px;
+            /* فاصله بیشتر */
             list-style: none;
             margin: 0;
             padding: 0;
@@ -99,29 +118,43 @@
         .nav-item {
             text-align: center;
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.4s ease-in-out;
             position: relative;
+            padding: 10px 0;
+            /* برای هاور بهتر */
+            color: #ccc !important;
+            /* رنگ پیش‌فرض کمی ملایم‌تر */
         }
 
         .nav-item i {
             display: block;
             color: white;
-            font-size: 18px;
-            margin-bottom: 4px;
+            font-size: 20px;
+            /* کمی بزرگتر */
+            margin-bottom: 6px;
             opacity: 0.7;
         }
 
-        .nav-item .fa-lang {
+        .nav-item .fa-lang,
+        .nav-item .en-text {
             display: block;
-            color: white;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item .fa-lang {
+            color: white;
         }
 
         .nav-item .en-text {
-            display: block;
             color: var(--text-gray);
-            font-size: 9px;
+        }
+
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--accent-blue);
         }
 
         .nav-item:hover i,
@@ -133,168 +166,274 @@
         .nav-item.active::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0px;
             left: 20%;
             width: 60%;
             height: 3px;
             background: var(--accent-blue);
             border-radius: 10px;
+            box-shadow: 0 0 15px var(--accent-blue);
         }
 
-        /* --- Sidebar & Hero Styles --- */
-        .left-sidebar {
-            padding: 60px 40px;
-            border-left: 1px solid var(--glass-border);
-            height: 100%;
-        }
-
-        .blue-dash {
-            width: 40px;
-            height: 4px;
+        .nav-cta-button {
+            /* دکمه تماس در Navbar */
             background: var(--accent-blue);
-            margin-bottom: 25px;
+            color: white !important;
+            /* برای اولویت دادن */
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 5px 20px rgba(0, 132, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
         }
 
-        .sidebar-text {
-            color: #aaa;
-            font-size: 14px;
-            line-height: 1.7;
+        .nav-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 132, 255, 0.5);
         }
 
-        .sidebar-text span {
-            color: var(--accent-blue);
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
+        /* --- Hero Section with Cards --- */
         .hero-section {
-            padding: 80px 60px;
+            padding: var(--section-padding);
+            flex-grow: 1;
+            /* اشغال فضای باقی‌مانده */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            /* بالای پس‌زمینه */
         }
 
-        .pre-title {
-            color: var(--accent-blue);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .hero-content {
+            max-width: 900px;
+            /* محدود کردن عرض برای خوانایی */
+            margin: 0 auto;
         }
 
-        .hero-title {
-            font-size: 3.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 25px;
+        .hero-section .row.g-4 {
+            width: 100%;
+            /* سطر باید ۱۰۰٪ عرض را بگیرد */
         }
 
-        .hero-title span {
-            color: var(--accent-blue);
+        .card-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            /* گوشه‌های گردتر */
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 100%;
+            /* اطمینان از پر شدن ارتفاع */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 25px;
+            /* padding داخلی کارت */
+            text-align: center;
         }
 
-        .hero-desc {
-            color: var(--text-gray);
-            max-width: 550px;
-            font-size: 16px;
-            margin-bottom: 40px;
+        .card-item:hover {
+            transform: translateY(-10px);
+            /* افکت بالا رفتن */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            /* سایه قوی‌تر در هاور */
         }
 
-        /* Buttons */
-        .btn-blue {
+        .card-item .blue-dash {
+            width: 50px;
+            /* کمی بزرگتر */
+            height: 5px;
+            /* ضخیم‌تر */
             background: var(--accent-blue);
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px var(--accent-blue);
+            /* درخشش آبی */
+        }
+
+        .card-item .card-title {
+            font-size: 2rem;
+            /* بزرگتر */
+            font-weight: 800;
+            margin-bottom: 15px;
             color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .card-item .card-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        .card-item .card-text {
+            font-size: 1rem;
+            color: #ccc;
+            /* رنگ متن کمی روشن‌تر */
+            margin-bottom: 35px;
+            max-width: 400px;
+            /* محدود کردن عرض متن */
+            opacity: 0.9;
+        }
+
+        /* --- Special Styling for Resume Card --- */
+        .resume-card .card-body {
+            background: rgba(255, 255, 255, 0.01);
+            /* کمی شفاف‌تر */
+        }
+
+        .resume-card .btn-primary {
+            background: var(--accent-blue);
             border: none;
             padding: 14px 35px;
             border-radius: 50px;
             font-weight: 600;
-            margin-left: 15px;
             box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3);
             transition: 0.3s;
+            text-decoration: none !important;
+            /* اطمینان از حذف خط زیر لینک */
         }
 
-        .btn-blue:hover {
+        .resume-card .btn-primary:hover {
             transform: translateY(-3px);
             background: #0073e6;
+            box-shadow: 0 15px 30px rgba(0, 132, 255, 0.4);
         }
 
-        .btn-outline {
-            border: 1px solid #444;
-            color: white;
-            padding: 14px 35px;
+
+        /* --- Call to Action Buttons --- */
+        .cta-buttons .btn {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 600;
             border-radius: 50px;
-            text-decoration: none;
-            transition: 0.3s;
-            display: inline-block;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin: 0 10px;
+            border: none;
         }
 
-        .btn-outline:hover {
+        .cta-buttons .btn-blue {
+            background: var(--accent-blue);
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.3);
+        }
+
+        .cta-buttons .btn-blue:hover {
+            transform: translateY(-3px);
+            background: #0073e6;
+            box-shadow: 0 15px 30px rgba(0, 132, 255, 0.4);
+        }
+
+        .cta-buttons .btn-outline-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--glass-border);
+        }
+
+        .cta-buttons .btn-outline-secondary:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-color: #666;
+            border-color: var(--glass-border);
+            transform: translateY(-2px);
         }
 
-        /* Bottom Row */
+
+        /* --- Bottom Features Section --- */
         .bottom-features {
-            margin-top: auto;
-            padding: 35px 60px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 60px 0;
+            background-color: rgba(0, 0, 0, 0.2);
             border-top: 1px solid var(--glass-border);
         }
 
         .feat-card {
-            border-right: 2px solid var(--accent-blue);
-            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feat-card::after {
+            /* خط جداکننده عمودی */
+            content: '';
+            position: absolute;
+            right: -10px;
+            /* تنظیم موقعیت */
+            top: 20%;
+            bottom: 20%;
+            width: 1px;
+            background: var(--glass-border);
+        }
+
+        .feat-card:last-child::after {
+            display: none;
+            /* حذف خط برای آخرین آیتم */
         }
 
         .feat-card strong {
-            display: block;
-            font-size: 15px;
-            margin-bottom: 5px;
-            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: white;
+            letter-spacing: 0.5px;
         }
 
         .feat-card span {
+            font-size: 0.9rem;
             color: var(--text-gray);
-            font-size: 13px;
+            max-width: 250px;
+            /* محدود کردن عرض */
         }
 
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            /* برای سادگی در موبایل مخفی شد */
-        }
-
+        /* --- Hamburger Menu --- */
         .hamburger-menu-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            /* کمی بالاتر */
+            right: 25px;
+            /* کمی بالاتر */
             z-index: 1001;
-            background: none;
+            background: transparent;
             border: none;
             color: white;
-            font-size: 28px;
+            font-size: 30px;
+            /* کمی بزرگتر */
             cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .hamburger-menu-toggle:hover {
+            color: var(--accent-blue);
         }
 
         .hamburger-nav-menu {
             position: fixed;
             top: 0;
             right: 0;
-            width: 75%;
-            max-width: 300px;
+            width: 80%;
+            /* بزرگتر */
+            max-width: 350px;
+            /* بزرگتر */
             height: 100vh;
-            background: #0a0c10;
+            background: linear-gradient(160deg, rgba(3, 5, 8, 0.95) 0%, rgba(10, 12, 16, 0.98) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             transform: translateX(100%);
-            transition: .3s;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            /* انیمیشن نرم‌تر */
             z-index: 1002;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 30px;
+            border-left: 1px solid var(--glass-border);
         }
 
         .hamburger-nav-menu.active {
@@ -302,28 +441,49 @@
         }
 
         .hamburger-nav-menu .nav-item {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 15px 10px;
+            color: #eee;
+            font-size: 19px;
+            /* بزرگتر */
+            padding: 18px 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            /* برای آیکون */
+            transition: background-color 0.3s ease;
         }
 
         .hamburger-nav-menu .nav-item:hover {
-            color: #0084ff;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent-blue);
         }
 
+        .hamburger-nav-menu .nav-item i {
+            font-size: 22px;
+            /* بزرگتر */
+            color: var(--accent-blue);
+        }
+
+        .hamburger-nav-menu .nav-item .fa-lang,
+        .hamburger-nav-menu .nav-item .en-text {
+            font-size: 14px;
+        }
+
+
         .close-btn {
-            background: none;
+            background: transparent;
             border: none;
-            font-size: 28px;
+            font-size: 30px;
+            /* بزرگتر */
             color: white;
             cursor: pointer;
             align-self: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-blue);
         }
 
         #overlay {
@@ -332,9 +492,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+            /* تیره‌تر */
             z-index: 1000;
             display: none;
+            backdrop-filter: blur(5px);
+            /* کمی بلور */
+            -webkit-backdrop-filter: blur(5px);
         }
 
         #overlay.active {
@@ -343,16 +507,577 @@
 
         body.menu-open {
             overflow: hidden;
+            /* جلوگیری از اسکرول در زمان باز بودن منو */
+        }
+
+        /* --- Footer Section --- */
+        .footer-zimano {
+            background: linear-gradient(180deg, rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 1)),
+                url("footerbackgrounfooter.png") center/cover no-repeat;
+            color: #e0e0e0;
+            /* رنگ کمی روشن‌تر */
+            padding: 80px 0 30px;
+            /* padding بیشتر */
+            font-family: 'Inter', sans-serif;
+            /* استفاده از فونت اصلی */
+            position: relative;
+            overflow: hidden;
+            /* جلوگیری از بیرون زدن */
+        }
+
+        .footer-zimano::before {
+            /* افکت گلس */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .footer-zimano .container {
+            position: relative;
+            z-index: 2;
+            /* محتوا روی افکت گلس */
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.4rem;
+            /* بزرگتر */
+            font-weight: 800;
+            margin-bottom: 25px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--accent-blue);
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            /* خط زیر کوتاهتر */
+            height: 3px;
+            background: white;
+        }
+
+        .footer-links li,
+        .footer-contact li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a,
+        .footer-contact li {
+            color: #ccc;
+            /* رنگ لینک‌ها */
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, padding-right 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover,
+        .footer-contact li:hover {
+            color: var(--accent-blue);
+            padding-right: 8px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact li i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+        .footer-brand p {
+            line-height: 1.9;
+            font-size: 0.95rem;
+            color: #ddd;
+            max-width: 450px;
+            /* محدود کردن عرض */
+            text-align: justify;
+            margin-top: 20px;
+            /* فاصله بیشتر */
+        }
+
+        .footer-highlights li {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            margin-bottom: 8px;
+            position: relative;
+            padding-right: 20px;
+            /* برای آیکون */
+        }
+
+        .footer-highlights li::before {
+            content: '●';
+            /* نقطه */
+            color: var(--accent-blue);
+            font-size: 12px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .footer-bottom {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 25px 0;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* تنظیم سرعت جابه‌جایی کروسل */
+        .carousel-item {
+            transition: transform 5s ease-in-out;
+            /* مقدار 1s را می‌توانید به 1.5s یا 2s تغییر دهید */
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-bottom: 0;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            /* فاصله بیشتر */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-bottom-links a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--accent-blue);
+            /* افکت درخشش قوی‌تر */
+        }
+
+        /* --- Automation Services Carousel Section --- */
+        /* --- Automation Services Carousel Section --- */
+        .automation-services-section {
+            padding: var(--section-padding);
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(rgba(3, 5, 8, 0.85), rgba(3, 5, 8, 0.95));
+            /* اصلاح شده: پرانتز اضافی حذف شد */
+        }
+
+
+        .automation-services-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            letter-spacing: 0.5px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .automation-services-section .carousel-item {
+            height: auto;
+            /* ارتفاع خودکار بر اساس محتوا */
+            padding: 20px 0;
+            /* فاصله بالا و پایین برای هر اسلاید */
+            display: flex;
+            justify-content: center;
+        }
+
+        .automation-services-section .row.g-4 {
+            width: 100%;
+            max-width: 1200px;
+            /* محدود کردن عرض بخش کروسل */
+            margin: 0 auto;
+        }
+
+        /* تنظیمات کارت‌های داخل کروسل */
+        .automation-services-section .card-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 100%;
+            /* اطمینان از پر شدن ارتفاع */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* چسباندن به بالا */
+            padding: 40px 25px;
+            text-align: center;
+            min-height: 350px;
+            /* حداقل ارتفاع برای هم‌ترازی */
+        }
+
+        .automation-services-section .card-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .automation-services-section .card-item .blue-dash {
+            width: 50px;
+            height: 5px;
+            background: var(--accent-blue);
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
+
+        .automation-services-section .card-item .card-title {
+            font-size: 1.6rem;
+            /* کمی کوچکتر از هیرو */
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .automation-services-section .card-item .card-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .automation-services-section .card-item .card-text {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            flex-grow: 1;
+            /* اجازه رشد به متن برای پر کردن فضا */
+        }
+
+        .automation-services-section .card-item .btn {
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            text-decoration: none !important;
+        }
+
+        .automation-services-section .card-item .btn-outline-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--glass-border);
+        }
+
+        .automation-services-section .card-item .btn-outline-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--glass-border);
+            transform: translateY(-2px);
+        }
+
+
+        /* Carousel Controls Styling */
+        .automation-services-section .carousel-control-prev,
+        .automation-services-section .carousel-control-next {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+
+        .automation-services-section .carousel-control-prev:hover,
+        .automation-services-section .carousel-control-next:hover {
+            opacity: 1;
+            background-color: var(--accent-blue);
+        }
+
+        .automation-services-section .carousel-control-prev-icon,
+        .automation-services-section .carousel-control-next-icon {
+            filter: invert(1);
+            /* سفید کردن آیکون فلش */
+            font-size: 20px;
+            /* بزرگتر کردن آیکون */
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 10px;
+            /* فاصله کم با خط */
+        }
+
+        .blue-underline {
+            width: 100px;
+            /* طول خط */
+            height: 4px;
+            /* ضخامت خط */
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            /* گرادینت آبی زیبا */
+            margin: 0 auto 30px auto;
+            /* وسط‌چین کردن خط و ایجاد فاصله پایین */
+            border-radius: 2px;
+            /* گرد کردن لبه‌ها */
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+            /* ایجاد کمی سایه برای عمق‌دهی */
+        }
+
+
+        /* --- Responsive Adjustments --- */
+        @media (min-width: 992px) {
+
+            /* برای صفحه نمایش‌های بزرگتر از 992px، 3 کارت در هر ردیف */
+            .hero-section .row.g-4>div,
+            .automation-services-section .row.g-4>div {
+                flex: 0 0 33.333333%;
+                /* هر ستون 33.33% عرض را بگیرد */
+                max-width: 33.333333%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .brand-logo {
+                width: 40px;
+            }
+
+            .brand-text h1 {
+                font-size: 22px;
+            }
+
+            .brand-text p {
+                font-size: 10px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            /* مخفی کردن منوی دسکتاپ */
+            .hamburger-menu-toggle {
+                display: block;
+            }
+
+            /* نمایش دکمه همبرگری */
+
+            .hero-section {
+                padding: 60px 0;
+            }
+
+            .card-item {
+                padding: 30px 20px;
+            }
+
+            .card-item .card-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons .btn {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+
+            .bottom-features {
+                padding: 50px 0;
+            }
+
+            .feat-card strong {
+                font-size: 1rem;
+            }
+
+            .feat-card span {
+                font-size: 0.85rem;
+            }
+
+            /* تنظیمات کروسل برای صفحه نمایش‌های متوسط */
+            .automation-services-section h2 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .automation-services-section .card-item {
+                min-height: 300px;
+            }
+
+            .footer-title {
+                font-size: 1.2rem;
+            }
+
+            .footer-links a,
+            .footer-contact li {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+
+            .hero-section .row.g-4>div {
+                display: flex;
+                /* برای اینکه کارت‌ها هم ارتفاع شوند */
+                justify-content: center;
+                /* وسط‌چین کردن کارت */
+            }
+
+            .card-item {
+                max-width: 450px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* تنظیمات کروسل برای تبلت: 2 کارت در هر ردیف */
+            .automation-services-section .row.g-4>div {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+
+            .automation-services-section .card-item {
+                min-height: 320px;
+            }
+
+            .footer-bottom .d-flex {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .glass-nav {
+                padding: 10px 20px;
+            }
+
+            .brand-section {
+                padding-left: 10px;
+            }
+
+            .brand-logo {
+                width: 35px;
+            }
+
+            .brand-text h1 {
+                font-size: 18px;
+            }
+
+            .brand-text p {
+                font-size: 9px;
+            }
+
+            .nav-cta-button {
+                font-size: 11px;
+                padding: 8px 15px;
+            }
+
+            .hamburger-nav-menu {
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .hamburger-nav-menu .nav-item {
+                font-size: 17px;
+                padding: 15px 10px;
+            }
+
+            .close-btn {
+                font-size: 26px;
+            }
+
+            .card-item .card-title {
+                font-size: 1.6rem;
+            }
+
+            .card-item .card-text {
+                font-size: 0.95rem;
+            }
+
+            .cta-buttons .btn {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+                margin: 5px 0;
+                display: block;
+            }
+
+            /* دکمه‌ها زیر هم */
+
+            .bottom-features {
+                padding: 30px 0;
+            }
+
+            .feat-card::after {
+                display: none;
+            }
+
+            /* حذف خط جداکننده در موبایل */
+            .feat-card {
+                margin-bottom: 30px;
+            }
+
+            /* تنظیمات کروسل برای موبایل: 1 کارت در هر ردیف */
+            .automation-services-section .row.g-4>div {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .automation-services-section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 25px;
+            }
+
+            .automation-services-section .card-item {
+                min-height: 280px;
+            }
+
+            .automation-services-section .card-item .btn {
+                font-size: 0.85rem;
+                padding: 8px 20px;
+            }
+
+            .footer-zimano {
+                padding: 50px 0 20px;
+            }
+
+            .footer-title {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+
+            .footer-links a,
+            .footer-contact li {
+                font-size: 0.85rem;
+            }
+
         }
     </style>
 </head>
 
 <body>
 
-    <div class="header-wrapper">
+    <div class="main-wrapper">
 
-        <!-- Glass Navbar یکپارچه شده -->
-        <nav class="glass-nav">
+        <!-- Glass Navbar -->
+        <nav class="glass-nav" id="navbar">
             <div class="brand-section">
                 <img src="logositezimanoai.png" alt="Logo" class="brand-logo">
                 <div class="brand-text">
@@ -369,31 +1094,29 @@
                         <span class="en-text">Home</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#" class="nav-item">
                         <i class="fa-solid fa-box"></i>
-                        <span class="fa-lang">محصولات</span>
+                        <span class="fa-lang">خدمات ما</span>
                         <span class="en-text">Products</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#" class="nav-item">
                         <i class="fa-solid fa-industry"></i>
-                        <span class="fa-lang">اتوماسیون صنعتی، PLC و اسکادا</span>
+                        <span class="fa-lang">اتوماسیون صنعتی، PLC ، اسکادا </span>
+                        <span class="fa-lang"> و کاربرد های آن </span>
                         <span class="en-text">Industrial Automation</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#" class="nav-item">
                         <i class="fa-solid fa-brain"></i>
                         <span class="fa-lang">هوش مصنوعی</span>
+                        <span class="fa-lang"> و کاربرد های آن </span>
                         <span class="en-text">AI Solutions</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#" class="nav-item">
                         <i class="fas fa-folder-open"></i>
@@ -401,7 +1124,6 @@
                         <span class="en-text">Projects</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#" class="nav-item">
                         <i class="fa-solid fa-building"></i>
@@ -415,121 +1137,748 @@
                 <div class="text-white me-4" style="font-size: 13px; cursor: pointer;">
                     EN <i class="fa-solid fa-globe ms-1"></i>
                 </div>
-                <a href="#" class="btn-blue py-2 px-4" style="font-size: 14px; border-radius: 12px;">تماس با ما</a>
+                <a href="#" class="nav-cta-button">تماس با ما</a>
             </div>
         </nav>
 
-        <div class="container-fluid flex-grow-1">
-            <div class="row h-100">
+        <!-- Hero Section with Cards -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row g-4">
 
-                <!-- Hero Content (سمت راست در RTL) -->
-                <div class="col-md-9 position-relative">
-                    <div class="hero-section">
-                        <div class="pre-title">Next-Gen AI Systems</div>
-                        <div class="pre-title">نسل آینده اتوماسیون هوشمند</div>
-                        <h1 class="hero-title">
-                            <span>ZIMANOAI</span>
-                        </h1>
-                        <p class="hero-desc">
-                            ZimanoAI: متخصص اتوماسیون صنعتی و هوشمندسازی پیشرفته.
+                    <!-- Card 1: Intelligent Support -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card-item">
+                            <div class="blue-dash"></div>
+                            <h5 class="card-title">ZIMANOAI</h5>
+                            <h6 class="card-subtitle">نسل آینده اتوماسیون هوشمند</h6>
+                            <p class="card-text">
+                                ZimanoAI: متخصص اتوماسیون صنعتی و هوشمندسازی پیشرفته.
 
-                            ما با بیش از ۱۰ سال تجربه، راهکارهای جامع PLC، SCADA، HMI، DCS و بینایی ماشین (Machine
-                            Vision) را برای صنایع پیشرفته ارائه می‌دهیم. ZimanoAI با بهره‌گیری از IoT و AI، فرآیندهای
-                            تولید شما را بهینه و متحول می‌سازد. </p>
+                                ما با بیش از ۱۰ سال تجربه، راهکارهای جامع PLC، SCADA، HMI، DCS و بینایی ماشین (Machine
+                                Vision) را برای صنایع پیشرفته ارائه می‌دهیم. ZimanoAI با بهره‌گیری از IoT و AI،
+                                فرآیندهای
+                                تولید شما را بهینه و متحول می‌سازد. </p>
 
-                        <div class="d-flex align-items-center">
-                            <button class="btn btn-blue">پروژه ها</button>
-                            <a href="#" class="btn-outline">تماس با ما ←</a>
+                            </p>
+                            <div class="cta-buttons d-flex justify-content-center flex-wrap">
+                                <button class="btn btn-blue">پروژه‌ها</button>
+                                <a href="#" class="btn btn-outline-secondary">تماس با ما</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Left Sidebar (سمت چپ در RTL) -->
-                <div class="col-md-3 d-none d-md-block p-0">
-                    <div class="left-sidebar">
-                        <div class="blue-dash"></div>
-                        <div class="sidebar-text">
-                            <span>Modern Automation</span>
-                            <span>اتوماسیون مدرن</span>
-                            ترکیب هوش مصنوعی و سخت‌افزارهای صنعتی برای رسیدن به بالاترین سطح کارایی در تولید.
+
+                    <!-- Card 2: Resume -->
+                    <div class="col-lg-4 col-md-12 resume-card">
+                        <div class="card-item">
+                            <div class="blue-dash"></div>
+                            <h5 class="card-title">RESUME</h5>
+                            <h6 class="card-subtitle">رزومه ما</h6>
+                            <p class="card-text">
+                                مشاهده و دانلود رزومه تخصصی ما با کلیک بر روی دکمه زیر.
+                            </p>
+                            <a href="رزومه ایمان اسکندری خرداد 1405.pdf" class="btn btn-primary">مشاهده رزومه</a>
                         </div>
                     </div>
-                </div>
 
+                    <!-- Card 3: Hero Content -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card-item">
+                            <div class="blue-dash"></div>
+                            <h5 class="card-title">Intelligent Support</h5>
+                            <h6 class="card-subtitle">تضمین هوشمند آینده</h6>
+                            <p class="card-text">
+                                پشتیبانی فنی و تحلیلی ZimanoAI: راه‌حل‌های ما با گارانتی عملکرد و تحلیل مستمر ارائه
+                                می‌شود.
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-        </div>
+        </section>
 
         <!-- Features Bottom Row -->
-        <div class="bottom-features">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="feat-card">
-                        <strong>High Accuracy</strong>
-                        <span>دقت بازرسی تا 99.9 درصد</span>
+        <section class="bottom-features">
+            <div class="container">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <div class="feat-card position-relative">
+                            <strong>High Accuracy</strong>
+                            <span>دقت بازرسی تا 99.9 درصد</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feat-card position-relative">
+                            <strong>Real-time Processing</strong>
+                            <span>پردازش آنی تصاویر بدون تاخیر</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feat-card position-relative">
+                            <strong>Smart Integration</strong>
+                            <span>یکپارچه‌سازی آسان با PLC و SCADA</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="feat-card">
-                        <strong>Real-time Processing</strong>
-                        <span>پردازش آنی تصاویر بدون تاخیر</span>
+            </div>
+        </section>
+
+    </div> <!-- End .main-wrapper -->
+
+    <!-- Automation Services Carousel Section -->
+    <section class="automation-services-section">
+        <div class="container">
+            <h2 class="section-title">خدمات ما در حوزه اتوماسیون صنعتی</h2>
+            <div class="blue-underline"></div>
+
+
+            <div id="automationCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">PLC Programming</h5>
+                                    <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
+                                    <p class="card-text">
+                                        برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
+                                        Delta.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">SCADA Systems</h5>
+                                    <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
+                                    <p class="card-text">
+                                        طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Industrial IoT</h5>
+                                    <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
+                                    <p class="card-text">
+                                        اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Machine Vision</h5>
+                                    <h6 class="card-subtitle">بینایی ماشین</h6>
+                                    <p class="card-text">
+                                        سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">HMI Design</h5>
+                                    <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
+                                    <p class="card-text">
+                                        طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Panel Design</h5>
+                                    <h6 class="card-subtitle">طراحی تابلو برق</h6>
+                                    <p class="card-text">
+                                        طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more slides as needed -->
                 </div>
-                <div class="col-md-4">
-                    <div class="feat-card">
-                        <strong>Smart Integration</strong>
-                        <span>یکپارچه‌سازی آسان با PLC و SCADA</span>
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#automationCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">قبلی</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#automationCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">بعدی</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="automation-services-section">
+        <div class="container">
+            <h2 class="section-title">خدمات ما در حوزه هوش مصنوعی</h2>
+            <div class="blue-underline"></div>
+
+
+            <div id="automationCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">PLC Programming</h5>
+                                    <h6 class="card-subtitle">پیاده‌سازی منطق کنترل</h6>
+                                    <p class="card-text">
+                                        برنامه‌نویسی و پیاده‌سازی سیستم‌های کنترل صنعتی با PLC های Siemens، Omron و
+                                        Delta.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">SCADA Systems</h5>
+                                    <h6 class="card-subtitle">نظارت و مانیتورینگ صنعتی</h6>
+                                    <p class="card-text">
+                                        طراحی سیستم‌های مانیتورینگ صنعتی برای کنترل فرآیندها و جمع‌آوری داده‌ها.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Industrial IoT</h5>
+                                    <h6 class="card-subtitle">اینترنت اشیا صنعتی</h6>
+                                    <p class="card-text">
+                                        اتصال تجهیزات صنعتی به شبکه و تحلیل داده‌های تولید برای افزایش بهره‌وری.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Machine Vision</h5>
+                                    <h6 class="card-subtitle">بینایی ماشین</h6>
+                                    <p class="card-text">
+                                        سیستم‌های پردازش تصویر صنعتی برای کنترل کیفیت و تشخیص عیوب در خطوط تولید.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">HMI Design</h5>
+                                    <h6 class="card-subtitle">رابط کاربری صنعتی</h6>
+                                    <p class="card-text">
+                                        طراحی صفحات HMI برای کنترل آسان و مانیتورینگ سیستم‌های صنعتی.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card-item">
+                                    <div class="blue-dash"></div>
+                                    <h5 class="card-title">Panel Design</h5>
+                                    <h6 class="card-subtitle">طراحی تابلو برق</h6>
+                                    <p class="card-text">
+                                        طراحی و ساخت تابلوهای برق صنعتی مطابق استانداردهای بین‌المللی.
+                                    </p>
+                                    <a href="#" class="btn btn-outline-secondary">بیشتر بدانید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more slides as needed -->
+                </div>
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#automationCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">قبلی</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#automationCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">بعدی</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="our-projects-section py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">پروژه‌های ما</h2>
+            <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-inner">
+                    <!-- Carousel Item 1 - Row of 5 Project Cards -->
+                    <div class="carousel-item active">
+                        <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
+
+                            <!-- Project Card 1 -->
+                            <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-1.jpg" class="card-img-top" alt="Project 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه اول</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 2 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-2.jpg" class="card-img-top" alt="Project 2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه دوم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 3 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-3.jpg" class="card-img-top" alt="Project 3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه سوم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 4 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-4.jpg" class="card-img-top" alt="Project 4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه چهارم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 5 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-5.jpg" class="card-img-top" alt="Project 5">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه پنجم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
+                    <div class="carousel-item">
+                        <div class="row g-4">
+
+                            <!-- Project Card 6 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-6.jpg" class="card-img-top" alt="Project 6">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه ششم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 7 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-7.jpg" class="card-img-top" alt="Project 7">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه هفتم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 8 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-8.jpg" class="card-img-top" alt="Project 8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه هشتم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 9 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-9.jpg" class="card-img-top" alt="Project 9">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه نهم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 10 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-10.jpg" class="card-img-top" alt="Project 10">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه دهم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Add more carousel-item divs for more rows of projects -->
+
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="our-projects-section py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">مقاله ها </h2>
+            <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div class="carousel-inner">
+                    <!-- Carousel Item 1 - Row of 5 Project Cards -->
+                    <div class="carousel-item active">
+                        <div class="row g-4"> <!-- g-4 adds gutter space between cards -->
+
+                            <!-- Project Card 1 -->
+                            <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-1.jpg" class="card-img-top" alt="Project 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه اول</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 2 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-2.jpg" class="card-img-top" alt="Project 2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه دوم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 3 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-3.jpg" class="card-img-top" alt="Project 3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه سوم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 4 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-4.jpg" class="card-img-top" alt="Project 4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه چهارم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 5 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-5.jpg" class="card-img-top" alt="Project 5">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه پنجم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Carousel Item 2 - Next Row of 5 Project Cards -->
+                    <div class="carousel-item">
+                        <div class="row g-4">
+
+                            <!-- Project Card 6 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-6.jpg" class="card-img-top" alt="Project 6">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه ششم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 7 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-7.jpg" class="card-img-top" alt="Project 7">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه هفتم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 8 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-8.jpg" class="card-img-top" alt="Project 8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه هشتم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 9 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-9.jpg" class="card-img-top" alt="Project 9">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه نهم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project Card 10 -->
+                            <div class="col-md-4 col-lg-2_4">
+                                <div class="card project-card h-100">
+                                    <img src="path/to/your/project-image-10.jpg" class="card-img-top" alt="Project 10">
+                                    <div class="card-body">
+                                        <h5 class="card-title">نام پروژه دهم</h5>
+                                        <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
+                                        <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Add more carousel-item divs for more rows of projects -->
+
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="footer-zimano">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <div class="brand-logo mb-3">
+                                <img src="logositezimanoai.png" alt="ZimanoAI Logo" class="img-fluid"
+                                    style="width: 50px;">
+                            </div>
+                            <p>
+                                ZimanoAI ارائه‌دهنده راهکارهای تخصصی اتوماسیون صنعتی، PLC، SCADA، DCS،
+                                پردازش تصویر و هوش مصنوعی برای صنایع پیشرفته است.
+                            </p>
+                            <ul class="footer-highlights mt-3">
+                                <li>راهکارهای پایدار و قابل‌اعتماد</li>
+                                <li>تجربه صنعتی و تخصص فنی</li>
+                                <li>پشتیبانی و اجرای پروژه</li>
+                                <li>رویکرد سفارشی برای هر صنعت</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="footer-title">Automation</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">PLC Programming</a></li>
+                            <li><a href="#">SCADA Development</a></li>
+                            <li><a href="#">DCS Engineering</a></li>
+                            <li><a href="#">HMI Design</a></li>
+                            <li><a href="#">Panel Design & Build</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="footer-title">AI Solutions</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Machine Vision</a></li>
+                            <li><a href="#">Image Processing</a></li>
+                            <li><a href="#">Data Science</a></li>
+                            <li><a href="#">AI Integration</a></li>
+                            <li><a href="#">Smart Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="footer-title">Services</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Industrial IoT</a></li>
+                            <li><a href="#">System Integration</a></li>
+                            <li><a href="#">Commissioning</a></li>
+                            <li><a href="#">Troubleshooting</a></li>
+                            <li><a href="#">Support & Maintenance</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <h5 class="footer-title">Contact</h5>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-envelope"></i> <span>imaneskandarifard@gmail.com</span></li>
+                            <li><i class="fas fa-phone"></i> <span>7149 515 98901+</span></li>
+                            <li><i class="fas fa-map-marker-alt"></i> <span>Tehran, Iran</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                    <p class="mb-0">© 2026 ZimanoAI. All Rights Reserved.</p>
+                    <ul class="footer-bottom-links mb-0">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hamburger Menu Toggle Button -->
     <button id="hamburger-menu-toggle" class="hamburger-menu-toggle">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- Overlay Background -->
     <div id="overlay"></div>
 
+    <!-- Hamburger Navigation Menu -->
     <nav id="hamburger-nav-menu" class="hamburger-nav-menu">
-
         <button class="close-btn" id="hamburger-nav-close">
             <i class="fas fa-times"></i>
         </button>
-
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item active">
             <span>خانه</span>
-            <i class="fas fa-home"></i>
+            <i class="fa-solid fa-house"></i>
         </a>
-
         <a href="#" class="nav-item">
-            <span>محصولات</span>
-            <i class="fas fa-box"></i>
+            <span>خدمات ما</span>
+            <i class="fa-solid fa-box"></i>
         </a>
-
         <a href="#" class="nav-item">
             <span>اتوماسیون صنعتی، PLC و اسکادا</span>
+            <span class="fa-lang"> و کاربرد های آن </span>
             <i class="fas fa-industry"></i>
         </a>
-
         <a href="#" class="nav-item">
             <span>هوش مصنوعی</span>
+            <span class="fa-lang"> و کاربرد های آن </span>
             <i class="fas fa-brain"></i>
         </a>
-
         <a href="#" class="nav-item">
             <span>پروژه های ما </span>
             <i class="fas fa-folder-open"></i>
         </a>
-
         <a href="#" class="nav-item">
             <span>درباره ما</span>
             <i class="fas fa-building"></i>
         </a>
-
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 
-    </script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Smooth Scrolling for Navbar on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger Menu functionality
         const hamburgerToggle = document.getElementById('hamburger-menu-toggle');
         const hamburgerMenu = document.getElementById('hamburger-nav-menu');
         const overlay = document.getElementById('overlay');
@@ -537,26 +1886,29 @@
         const body = document.body;
 
         function toggleMenu() {
-
             hamburgerMenu.classList.toggle('active');
             overlay.classList.toggle('active');
             body.classList.toggle('menu-open');
-
             const icon = hamburgerToggle.querySelector('i');
-
-            if (hamburgerMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         }
 
         hamburgerToggle.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
-        hamburgerClose.addEventListener('click', toggleMenu);  </script>
+        hamburgerClose.addEventListener('click', toggleMenu);
+
+        // Ensure the carousel interval is set correctly
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const carouselElement = document.getElementById('automationCarousel');
+            if (carouselElement) {
+                const carousel = new bootstrap.Carousel(carouselElement, {
+                    interval: 5000, // 5000 milliseconds = 5 seconds
+                    wrap: true // Enable looping
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
