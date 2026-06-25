@@ -702,7 +702,7 @@
 
         /* تنظیم سرعت جابه‌جایی کروسل */
         .carousel-item {
-            transition: transform 5s ease-in-out;
+            transition: transform 15s ease-in-out;
             /* مقدار 1s را می‌توانید به 1.5s یا 2s تغییر دهید */
         }
 
@@ -1092,6 +1092,30 @@
                 display: block;
             }
 
+            /* یکسان سازی ابعاد عکس تمام پروژه‌ها */
+            .project-card .card-img-top {
+                width: 100%;
+                height: 220px;
+                /* این ارتفاع را می‌توانید به دلخواه کم یا زیاد کنید */
+                object-fit: cover;
+                /* مهم‌ترین بخش: عکس را بدون دفرمه شدن در قاب فیت می‌کند */
+                object-position: center;
+                /* تمرکز عکس روی مرکز باشد */
+            }
+
+            /* برای اینکه خود کارت‌ها هم قد بلند و کوتاه نشوند */
+            .project-card {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .project-card .card-body {
+                flex-grow: 1;
+                /* باعث می‌شود دکمه‌ها یا متن‌های پایین هم تراز شوند */
+            }
+
+
             /* دکمه‌ها زیر هم */
 
             .bottom-features {
@@ -1143,6 +1167,71 @@
                 font-size: 0.85rem;
             }
 
+        }
+
+        @media (max-width: 767px) {
+
+            /* ۱. باز کردن فضای ردیف برای اسکرول افقی */
+            .our-projects-section .row {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                /* جلوگیری از شکستن خط */
+                overflow-x: auto !important;
+                /* فعال سازی اسکرول */
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 25px !important;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+
+            /* ۲. حل مشکل روی هم افتادن با غیرفعال کردن Shrink */
+            .our-projects-section .row>div[class*="col-"] {
+                flex: 0 0 85% !important;
+                /* عدد اول (0) یعنی به هیچ وجه کارت کوچک نشود */
+                width: 85% !important;
+                /* عرض هر کارت */
+                max-width: 85% !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+
+            /* ۳. اصلاح استایل کارت برای نمایش بهتر در موبایل */
+            .our-projects-section .project-card {
+                height: 100% !important;
+                display: block !important;
+                /* اطمینان از اینکه کارت فضای خودش را دارد */
+            }
+
+            /* ۴. مخفی کردن دکمه‌های اسلایدر که روی کارت‌ها نیفتند */
+            .our-projects-section .carousel-control-prev,
+            .our-projects-section .carousel-control-next {
+                display: none !important;
+            }
+        }
+
+        /* حل مشکل ناهماهنگی اندازه عکس پروژه‌ها */
+        .our-projects-section .project-card .card-img-top {
+            width: 100% !important;
+            height: 180px !important;
+            /* ارتفاع ثابت برای همه عکس‌ها */
+            object-fit: cover !important;
+            /* جلوگیری از دفرمه شدن */
+            object-position: center !important;
+        }
+
+        /* یکسان‌سازی ارتفاع کل کارت‌ها */
+        .our-projects-section .project-card {
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        /* تراز کردن متن و دکمه‌ها در پایین کارت */
+        .our-projects-section .project-card .card-body {
+            flex-grow: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
         }
     </style>
 </head>
@@ -1541,7 +1630,7 @@
     <!-- Projects Section -->
     <section class="our-projects-section py-5">
         <div class="container">
-            <h2 class="section-title text-center mb-5">پروژه‌های ما</h2>
+            <h2 class="section-title text-center mb-5">بخشی از پروژه های ما </h2>
             <div class="blue-underline"></div>
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="projects">
@@ -1553,11 +1642,13 @@
                                 <!-- Project Card 1 -->
                                 <div class="col-md-4 col-lg-2_4"> <!-- Adjust column size for 5 cards -->
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-1.jpg" class="card-img-top"
-                                            alt="Project 1">
+                                        <img src="bidboland.jpg" class="card-img-top" alt="Project 1">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه اول</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه اول.</p>
+                                            <h5 class="card-title">پالایشگاه گازی بیدبلند خلیج فارس</h5>
+                                            <p class="card-text">سیستم فرماندهی متمرکز ۴ دیزل ژنراتور ۲۵۰۰ کاوا ،تبدیل ۴
+                                                واحد مجزای تولید برق به یک شبکه هوشمند و یکپارچه؛ برنامه‌نویسی تخصصی
+                                                کنترلرها و ایجاد ارتباط دوسویه با PLC مرکزی جهت پایش دقیق ولتاژ متوسط
+                                                (درحال اجرا) </p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1566,11 +1657,12 @@
                                 <!-- Project Card 2 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-2.jpg" class="card-img-top"
-                                            alt="Project 2">
+                                        <img src="ardakan.jpg" class="card-img-top" alt="Project 2">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه دوم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه دوم.</p>
+                                            <h5 class="card-title">مجتمع فولاد اردکان</h5>
+                                            <p class="card-text">برنامه نویسی PLC و DCS ،طراحی و پیاده سازی سیستم
+                                                مانیتورینگ SCADA ،کنترل و مانیتورینگ کلیه تجهیزات و خطوط انتقال
+                                                ،اتوماسیون کامل تصفیه خانه صنعتی مجتمع فولاد </p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1579,11 +1671,11 @@
                                 <!-- Project Card 3 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-3.jpg" class="card-img-top"
-                                            alt="Project 3">
+                                        <img src="bidkhoon.jpg" class="card-img-top" alt="Project 3">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه سوم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه سوم.</p>
+                                            <h5 class="card-title">تصفیه خانه فاضلاب پارس جنوبی عسلویه (بیدخون)</h5>
+                                            <p class="card-text">برنامه نویسی PLC,DCS ، پیاده سازی کامل سیستم مانیتورینگ
+                                                SCADA ، کنترل هوشمند فرآیند های تصفیه فاضلاب صنعتی .</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1592,11 +1684,11 @@
                                 <!-- Project Card 4 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-4.jpg" class="card-img-top"
-                                            alt="Project 4">
+                                        <img src="groundwater.jpg" class="card-img-top" alt="Project 4">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه چهارم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه چهارم.</p>
+                                            <h5 class="card-title">کارخانه آب معدنی گراند</h5>
+                                            <p class="card-text">اتوماسیون دستگاه UF،برنامه نویسی PLC وHMI ،کنترل دقیق
+                                                فرآیند فیلتراسیون ، افزایش کیفیت و ثبات تولید آب معدنی .</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1605,11 +1697,24 @@
                                 <!-- Project Card 5 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-5.jpg" class="card-img-top"
-                                            alt="Project 5">
+                                        <img src="hell.jpg" class="card-img-top" alt="Project 5">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه پنجم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه پنجم.</p>
+                                            <h5 class="card-title">کارخانه نساجی هل </h5>
+                                            <p class="card-text">اتوماسیون خطوط انتقال و تصفیه آب ، برنامه نویسی
+                                                PLC,HMI،کنترل خطوط انتقال آب صنعتی ، اتوماسیون سیستم تصفیه آب کارخانه .
+                                            </p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="wintech.png" class="card-img-top" alt="Project 5">
+                                        <div class="card-body">
+                                            <h5 class="card-title">کارخانه وین تک </h5>
+                                            <p class="card-text">برنامه نویسی PLC و خط تولید ارتباط با و ارتباط با دو
+                                                ربات صنعتی در بستر پروفی باس
+                                            </p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1625,11 +1730,13 @@
                                 <!-- Project Card 6 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-6.jpg" class="card-img-top"
-                                            alt="Project 6">
+                                        <img src="WESTEWATERTREATMENT.PNG" class="card-img-top" alt="Project 6">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه ششم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه ششم.</p>
+                                            <h5 class="card-title">تصفیه خانه فاضلاب غرب تهران (فیروزبهرام)</h5>
+                                            <p class="card-text">مهندسی و مشاوره تخصصی در PLC , DCS و SCADA و انجام
+                                                سیگنال چک ، بررسی صحت عملکرد تجهیزات ، بهینه سازی ساختار کنترلی و سیگنال
+                                                چک ،چک کردن تمامی فرایندهای در احال اجرا از جمله حوضچه های ته نشینی ،UVو
+                                                ....</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1638,11 +1745,12 @@
                                 <!-- Project Card 7 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-7.jpg" class="card-img-top"
-                                            alt="Project 7">
+                                        <img src="ALOM.jpg" class="card-img-top" alt="Project 7">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه هفتم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه هفتم.</p>
+                                            <h5 class="card-title">صنایع کارخانجات آلوم رول</h5>
+                                            <p class="card-text">اتوماسیون تصفیه آب صنعتی(RO) ، برنامه نویسی
+                                                PLC,HMI،کنترل و مانیتورینگ سیستم RO ، افزایش پایداری و بهره وری فرآیند
+                                                تصفیه آب صنعتی ..</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1651,11 +1759,11 @@
                                 <!-- Project Card 8 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-8.jpg" class="card-img-top"
-                                            alt="Project 8">
+                                        <img src="PISHVA.jpg" class="card-img-top" alt="Project 8">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه هشتم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه هشتم.</p>
+                                            <h5 class="card-title">تصفیه خانه فاضلاب پیشوا</h5>
+                                            <p class="card-text">برنامه نویسی PLC,DCS,پیاده سازی سیستم مانیتورینگ هوشمند
+                                                تصفیه خانه فاضلاب شهری و سیگنال چک .</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1664,11 +1772,11 @@
                                 <!-- Project Card 9 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-9.jpg" class="card-img-top"
-                                            alt="Project 9">
+                                        <img src="KHUSHEMEHR.jpg" class="card-img-top" alt="Project 9">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه نهم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه نهم.</p>
+                                            <h5 class="card-title">تصفیه خانه فاضلاب خوشه مهر</h5>
+                                            <p class="card-text">برنامه نویسی PLC , DCS,طراحی و اجرای SCADA ،دستری باس
+                                                منوال سیگنال ها و سیگنال چک تمامی تجهیزات .</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
@@ -1677,11 +1785,24 @@
                                 <!-- Project Card 10 -->
                                 <div class="col-md-4 col-lg-2_4">
                                     <div class="card project-card h-100">
-                                        <img src="path/to/your/project-image-10.jpg" class="card-img-top"
-                                            alt="Project 10">
+                                        <img src="CHLOR.jpg" class="card-img-top" alt="Project 10">
                                         <div class="card-body">
-                                            <h5 class="card-title">نام پروژه دهم</h5>
-                                            <p class="card-text">توضیح کوتاه درباره پروژه دهم.</p>
+                                            <h5 class="card-title">صنایع و کارخانجات کلرپارس</h5>
+                                            <p class="card-text">اتوماسیون تصفیه آب صنعتی (RO) ، برنامه نویسی مجدد
+                                                PLC,HMI،کنترل و مانیتورینگ سیستم RO ، افزایش پایداری و بهره وری فرآیند
+                                                تصفیه آب صنعتی .</p>
+                                            <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-lg-2_4">
+                                    <div class="card project-card h-100">
+                                        <img src="HARARATSAZAN.jpg" class="card-img-top" alt="Project 10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">حرارت سازان </h5>
+                                            <p class="card-text">برنامه نویسی هوش مصنوعی و شبکه کردن آن با ریات ،برنامه
+                                                نویسی و کانفیگ و شبکه کردن لیزر ریکاس و مکس با خطوط تولید شبکه کردن دو
+                                                ربات صنعتی .</p>
                                             <a href="#" class="btn btn-primary btn-sm">مشاهده جزئیات</a>
                                         </div>
                                     </div>
